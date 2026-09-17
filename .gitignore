@@ -1,0 +1,13 @@
+node_modules/
+dist/
+lib/
+*.log
+logs/
+.env
+.env.*
+!.env.development
+!.env.production
+!.env.example
+.DS_Store
+data/
+.pm2/

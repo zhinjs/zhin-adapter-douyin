@@ -1,0 +1,20 @@
+database:
+  dialect: sqlite
+  filename: ./data/bot.db
+  mode: wal
+http:
+  token: ${HTTP_TOKEN}
+  port: 8086
+  corsOrigins:
+    - https://console.zhin.dev
+    - http://localhost:8068
+    - http://127.0.0.1:8068
+plugin:
+  endpoints:
+    - id: douyin
+plugins:
+  sandbox:
+    endpoints:
+      - context: sandbox
+        id: sandbox-bot
+        owner: sandbox-user

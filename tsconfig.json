@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "plugin.ts",
+    "adapters/**/*.ts",
+    "src/**/*.ts",
+    "commands/**/*.ts",
+    "commands/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "master": {
+      "type": ["string", "number"],
+      "description": "框架 master 抖音 uid（/approve、AI/工具权限）；endpoints[i].master 可逐项覆盖"
+    },
+    "trusted": {
+      "type": "array",
+      "items": { "type": ["string", "number"] },
+      "description": "框架 trusted 抖音 uid 列表（弱于 master）"
+    },
+    "accountsDir": {
+      "type": "string",
+      "description": "账号会话落盘目录（默认 <cwd>/data/douyin/accounts）"
+    },
+    "userAgent": {
+      "type": "string",
+      "description": "全局 UA 覆盖；endpoints[i].userAgent 可逐项覆盖"
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "多账号：一个插件实例挂多个 endpoint。每项与顶层字段同构（id 必填，其余覆盖顶层）",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "账号实例标识（douyin.endpoint add/remove 以此为名），如主号昵称或账号名"
+          },
+          "uid": {
+            "type": "string",
+            "description": "抖音平台 uid（纯数字字符串）；提供时优先恢复本地会话，否则扫码登录"
+          },
+          "cookies": {
+            "type": "string",
+            "description": "手动注入 cookie（浏览器复制或上轮会话）；未提供且本地无会话时走扫码登录"
+          },
+          "msToken": {
+            "type": "string",
+            "description": "msToken cookie 覆盖（一般无需手动配置）"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "桌面 IM 设备 ID（324+7 位数字）；不填由本地账号存储自动生成"
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "本 endpoint 的 UA 覆盖"
+          },
+          "master": {
+            "type": ["string", "number"],
+            "description": "本 endpoint 的 master 抖音 uid；覆盖顶层 master"
+          },
+          "trusted": {
+            "type": "array",
+            "items": { "type": ["string", "number"] },
+            "description": "本 endpoint 的 trusted 列表"
+          }
+        },
+        "required": ["id"]
+      }
+    },
+    "commandPrefix": {
+      "type": "string",
+      "default": "",
+      "description": "命令前缀（默认 '' 无前缀）。endpoints[i] 可逐项覆盖"
+    }
+  },
+  "required": ["endpoints"]
+}
