@@ -5,12 +5,11 @@
 ## ✨ 特性
 
 - 扫码登录（二维码通过聊天窗口直接发送），支持二次验证（短信验证码 / 账号密码）
-- 启动时优先恢复本地会话，无需每次重连重新扫码
-- 真实昵称/头像：登录后通过 `GET /aweme/v1/web/user/profile/self/` 覆盖护照默认「用户xxx」与 mosaic 占位头像
+- 启动时优先恢复本地会话（cookie 落盘），无需每次重连重新扫码
+- 真实昵称/头像：登录/恢复后通过 SDK `user.self()` 同步覆盖
 - 多账号：一个插件实例挂多个 endpoint（`endpoints[]`）
 - 媒体收发：图片（base64/url/path）、文件、引用消息回复；音频段自动降级
-- 收件箱历史恢复、群成员补齐、`private:`/`group:` 会话寻址
-- master / trusted 权限位（/approve、AI 与工具权限）
+- 基于 [douyin.ts](https://www.npmjs.com/package/douyin.ts) SDK：连接、心跳、收发、事件桥全部走 SDK，零自研协议栈
 
 ## � 安装（在宿主 Zhin 应用）
 
@@ -54,10 +53,7 @@ plugin:
 | `id` | 账号实例标识（必填），用于 `#抖音登录 <id>` 选中账号 |
 | `uid` | 抖音平台 uid（纯数字字符串）；提供时优先恢复本地会话 |
 | `cookies` | 手动注入 cookie；未提供且本地无会话时走扫码登录 |
-| `msToken` | msToken cookie 覆盖（一般无需配置） |
-| `deviceId` | 桌面 IM 设备 ID（324+7 位数字）；不填自动生成 |
 | `userAgent` | 本 endpoint 的 UA 覆盖 |
-| `master` / `trusted` | 本 endpoint 的权限位（/approve、AI/工具权限） |
 
 ## 🤖 使用
 
@@ -69,8 +65,7 @@ plugin:
 
 会话数据落盘在宿主应用的 `accountsDir`（默认 `<cwd>/data/douyin/accounts`）：
 
-- `<uid>/session.json` — 账号会话（cookies、token、真实昵称/头像）
-- `device.json` — 设备指纹
+- `accounts.json` — 多账号 cookie / 昵称 / 头像（按 uid 存储，登录自动写入）
 
 ## 🔧 本地开发
 
@@ -79,20 +74,18 @@ plugin:
 ```
 zhin-adapter-douyin/
 ├── plugin.ts                  # 根插件入口（definePlugin，name: douyin）
-├── adapters/douyin.ts         # defineAdapter：把 src/ 实现注册为 douyin 平台
+├── adapters/
+│   └── douyin/index.ts        # defineAdapter：组装 Accounts + DouyinEndpoint 注册为 douyin 平台
 ├── schema.json                # 插件配置契约（JSON Schema）
 ├── commands/
-│   ├── 抖音登录.ts            # #抖音登录：手动发起扫码登录
-│   └── 抖音验证.ts            # #抖音验证 <验证码/密码>：提交二步验证
-├── src/
-│   ├── endpoint.ts            # 端点实现：登录、连接、收发、会话落盘
-│   ├── protocol.ts            # 配置 Schema（Cfg）与地址/会话映射
-│   ├── im/                    # 桌面 IM 协议客户端（client/inbox/send/recv/media…）
-│   ├── proto/                 # protobuf 编解码（wire/codec/schema/ws）
-│   ├── passport.ts / login.ts / qr.ts / verif.ts   # 扫码登录链路
-│   ├── mssdk.ts / qsign.ts / sign.ts / jar.ts      # 签名与辅助
-│   └── store.ts / state.ts / device.ts / http.ts   # 会话存储 / 运行时状态 / 设备 / HTTP
-└── skills/                    # SKILL.md 能力目录
+│   ├── 抖音登录/index.ts      # #抖音登录：手动发起扫码登录
+│   └── 抖音验证/index.ts      # #抖音验证 <验证码/密码>：提交二步验证
+└── src/
+    ├── endpoint.ts            # DouyinEndpoint：基于 douyin.ts SDK 的端点（登录/连接/收发/事件桥）
+    ├── accounts.ts            # 账号会话落盘（accounts.json，按 uid 存 cookie）
+    ├── protocol.ts            # 配置模型（Cfg/EpCfg）与地址/会话映射
+    ├── state.ts               # 运行时状态 Token 与 endpoint 实例注册表
+    └── index.ts               # 包内导出出口
 ```
 
 > 发布为 npm 包时，`package.json` 需补充 `files` 白名单（`plugin.js`、`schema.json`、`commands/`、`lib/`、`README.md` 等）与 `main`/`types` 入口。

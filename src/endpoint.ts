@@ -7,7 +7,7 @@ import type {
   EndpointSendRequest,
 } from 'zhin.js/adapter'
 import type { EndpointContentPort, EndpointContentResolveContext } from 'zhin.js/adapter'
-import { buildNotice, buildRequest, senderFromId, type LoginAssist } from '@zhin.js/core'
+import { buildNotice, buildRequest, composeSideEventName, senderFromId } from '@zhin.js/core'
 import type {
   ConversationMessage,
   ConversationReference,
@@ -22,38 +22,23 @@ import type {
   SegmentBase,
   TextSegment,
 } from '@zhin.js/im-contract'
-import { formatCompact, getAdapterLogger, truncatePreview } from '@zhin.js/logger'
-import { join } from 'node:path'
-import type { CapabilityId } from 'zhin.js'
-import type { Http } from './http.js'
-import { setupDevice, type DesktopDeviceIdentity } from './device.js'
-import { self, twid, warmup } from './warmup.js'
-import { Im } from './im/client.js'
-import type {
-  ChatMessage,
-  ConversationAddress,
-  InboundMessage,
-  NoticeEvent,
-  ParsedMessageContent,
-  RequestEvent,
-  SendMessageReference,
-  SendMessageResponse,
-} from './im/types.js'
-import type { TextMention } from './im/content.js'
-import { Store, localRestore } from './store.js'
-import type { Rec } from './store.js'
-import type { Qs } from './qr.js'
-import { runQrLogin } from './login.js'
-import { inConv, outAddr, groupAddr } from './protocol.js'
+import { getAdapterLogger, truncatePreview } from '@zhin.js/logger'
+import { Bot, chatIdOf, login, type BotMessage, type MsgBody, type NoticeEvent, type RequestEvent } from 'douyin.ts'
+import { inConv, outAddr } from './protocol.js'
 import type { EpCfg } from './protocol.js'
+import type { Accounts } from './accounts.js'
 
 export interface Opts {
-  readonly id: CapabilityId
+  /** 能力路由 id（CapabilityId，运行时为 string 使用，跨版本品牌类型不兼容故声明为 string） */
+  readonly id: string
   readonly config: EpCfg
-  readonly http: Http
-  readonly store: Store
-  readonly loginAssist: LoginAssist
+  readonly accounts: Accounts
 }
+
+/** SDK 未导出 `SendMessageResponse`：从 msg.send 返回类型推断 */
+type SendResponse = Awaited<ReturnType<Bot['msg']['send']>>
+/** SDK 未导出 `ForwardNode`：从 forward 发送体载荷推断节点数组 */
+type ForwardNodes = Extract<MsgBody, { type: 'forward' }>['nodes']
 
 /** 入站事件去重阀（notice/request 瞬时风暴防护） */
 const SIDE_EVENT_DEDUPE_HOLD_MILLIS = 30_000
@@ -65,68 +50,54 @@ type MediaSendSegment = {
   platform?: Readonly<Record<string, unknown>>
 }
 
-/** 入站 parsed 内容 → canonical Segment[]（文本/图片/视频/文件/语音/合并转发）。 */
-export function inboundToSegments (message: InboundMessage): Segment[] {
-  const parsed = message.parsed
+/** 入站 BotMessage → canonical Segment[]（文本/图片/视频/文件/语音/合并转发）。 */
+export function inboundToSegments(message: BotMessage): Segment[] {
   const segments: Segment[] = []
-  switch (parsed.kind) {
+  const text = message.text ?? ''
+  switch (message.type) {
     case 'text':
     case 'emoji':
-    case 'link':
     case 'share':
-    case 'user':
-      if (parsed.text) segments.push({ type: 'text', data: { text: parsed.text } })
+    case 'userCard':
+    case 'link':
+      if (text) segments.push({ type: 'text', data: { text } })
       break
     case 'image': {
-      const url = parsed.image.originUrls[0] ?? parsed.image.largeUrls[0] ?? parsed.image.mediumUrls[0]
+      const url = message.image.originUrls?.[0] ?? message.image.largeUrls?.[0] ?? message.image.mediumUrls?.[0] ?? message.image.thumbUrls?.[0]
       if (url) segments.push({ type: 'image', data: { media: { kind: 'url', value: url } } })
       break
     }
     case 'video': {
-      const url = parsed.video.checkPics?.[0] ?? ''
-      segments.push({
-        type: 'video',
-        data: {
-          media: { kind: 'url', value: url },
-          ...(parsed.text ? { alt: parsed.text } : {}),
-        },
-      })
+      const url = message.video.checkPics?.[0] ?? message.video.inlinePic ?? ''
+      if (url) segments.push({ type: 'video', data: { media: { kind: 'url', value: url }, ...(text ? { alt: text } : {}) } })
       break
     }
     case 'audio': {
-      const url = parsed.audio.urls[0]
+      const url = message.audio.urls?.[0] ?? message.audio.uri
       if (url) segments.push({ type: 'audio', data: { media: { kind: 'url', value: url } } })
       break
     }
-    case 'file': {
-      const file = parsed.file
-      segments.push({
-        type: 'file',
-        data: { media: { kind: 'url', value: file.uri, file_name: file.name } },
-      })
+    case 'file':
+      segments.push({ type: 'file', data: { media: { kind: 'url', value: message.file.uri, file_name: message.file.name } } })
       break
-    }
     case 'forward': {
-      const entries: ForwardEntry[] = parsed.nodes.map(node => ({
+      const entries: ForwardEntry[] = message.nodes.map(node => ({
         actor: { id: node.uid, displayName: node.nickname },
-        timestamp: node.createTime ? node.createTime * 1000 : undefined,
+        ...(node.createTime ? { timestamp: node.createTime } : {}),
         segments: [{ type: 'text', data: { text: node.text } }],
       }))
-      segments.push({
-        type: 'forward',
-        data: { forward_id: message.serverMessageId ?? '', title: '[合并转发]', entries },
-      })
+      segments.push({ type: 'forward', data: { forward_id: message.serverMessageId ?? '', title: '[合并转发]', entries } })
       break
     }
     default:
-      if (message.text) segments.push({ type: 'text', data: { text: message.text } })
+      if (text) segments.push({ type: 'text', data: { text } })
       break
   }
   return segments
 }
 
-/** 将入站原始消息归一到 zhin IncomingMessage。conversation.endpoint.id 必须是 CapabilityId（框架按 record id 路由），endpointId 为实例名。 */
-function inboundToIncoming (capabilityKey: string, instanceKey: string, message: InboundMessage) {
+/** 将入站 SDK 消息归一到 zhin IncomingMessage。endpoint.id 必须是 CapabilityId（框架按 record id 路由）。 */
+function inboundToIncoming(capabilityKey: string, instanceKey: string, message: BotMessage) {
   const conversation = inConv(capabilityKey, {
     conversationId: message.conversationId,
     conversationShortId: message.conversationShortId,
@@ -136,9 +107,9 @@ function inboundToIncoming (capabilityKey: string, instanceKey: string, message:
   return Object.freeze({
     conversation,
     message: { conversation, id: message.serverMessageId ?? '' },
-    content: message.text,
+    content: message.text ?? '',
     segments: inboundToSegments(message),
-    sender: senderFromId(message.senderUid, undefined),
+    sender: senderFromId(message.senderUid, message.senderNickname ?? undefined),
     endpointId: instanceKey,
     replyTo,
     metadata: Object.freeze({
@@ -153,259 +124,164 @@ function inboundToIncoming (capabilityKey: string, instanceKey: string, message:
 }
 
 /**
- * Douyin IM endpoint：连接 = ImClient WS 生命周期；入站 message/notice/request 归一后
- * 走 ClientEndpoint 事件门闩（open 前缓冲，close 后丢弃）。
+ * Douyin IM endpoint：以 douyin.ts Bot 为原生客户端。
+ * 登录 = SDK login() 扫码（cookie 落盘 accounts.json）；连接 = Bot.start()；
+ * 入站 message/notice/request 归一后走 ClientEndpoint 事件门闩。
  */
-export class DouyinEndpoint extends ClientEndpoint<Im> {
+export class DouyinEndpoint extends ClientEndpoint<Bot> {
   readonly #logger: ReturnType<typeof getAdapterLogger>
   readonly #options: Opts
-  readonly #loginOwner = Object.freeze({})
-  readonly #messageContent = new Map<string, ConversationMessage>()
+  /** serverMessageId → BotMessage（回复引用与 content resolve 用，防内存膨胀限 1000 条） */
+  readonly #messages = new Map<string, BotMessage>()
   readonly #sideSeen = new Map<string, number>()
-  #client: Im | undefined
+  #client: Bot | undefined
   #started = false
   #bound = false
+  #release: (() => void) | undefined
 
-  constructor (options: Opts) {
+  constructor(options: Opts) {
     super()
     this.#options = options
     this.#logger = getAdapterLogger('douyin', options.id)
   }
 
   /** 原生客户端；未登录时为 undefined（框架 start/emit 均读取该值，不可抛错）。 */
-  get client (): Im {
-    return this.#client as Im
+  get client(): Bot {
+    return this.#client as Bot
   }
 
   /** 出站控制面取客户端，未登录时给出友好错误。 */
-  #needClient (): Im {
+  #needClient(): Bot {
     if (!this.#client) throw new Error(`douyin endpoint「${this.endpointName}」未登录`)
     return this.#client
   }
 
-  get endpointName (): string {
+  get endpointName(): string {
     return this.#options.config.id
   }
 
   /* -- 生命周期 ----------------------------------------------------------- */
 
-  async start (signal: AbortSignal): Promise<void> {
+  /** 启动时若已存在本地会话（accounts.json）自动恢复连接；否则保持 offline 等待命令触发扫码。 */
+  async start(signal: AbortSignal): Promise<void> {
     if (this.#started) return
     this.#started = true
     signal.addEventListener('abort', () => this.stop(), { once: true })
-    const record = await this.#restoreRecord()
-    if (!record) {
-      return
-    }
-    await this.#connect(record)
-    this.#logger.info(`connected (im websocket) | uid: ${record.platformUid}`)
-    // 旧 session.json 可能是 passport 默认昵称 + mosaic 占位头像，恢复后异步刷新为真实资料
-    void this.#refreshStoredProfile(record.platformUid)
+    const account = await this.#options.accounts.get(this.#options.config.uid)
+    const cookie = this.#options.config.cookies ?? account?.record.cookie
+    const uid = this.#options.config.uid ?? account?.uid
+    if (!cookie) return
+    await this.#connect(cookie, uid)
+    this.#logger.info(`douyin connected (sdk) | uid: ${this.#client?.id ?? uid}`)
+    // 恢复的会话可能是旧 nickname/头像，异步刷新为真实资料
+    if (uid) void this.#refreshStoredProfile(uid)
   }
 
-  open (): void {
+  open(): void {
     super.open()
   }
 
-  stop (): void {
+  stop(): void {
     if (!this.#started && !this.#bound) return
     this.#started = false
-    if (this.#client) this.#client.stop()
+    this.#bound = false
+    this.#release?.()
+    this.#release = undefined
+    this.#client?.stop()
+    this.#client = undefined
   }
 
-  /* -- 登录与恢复 ----------------------------------------------------------- */
+  /* -- 登录与连接 ----------------------------------------------------------- */
 
-  /** 由「抖音登录」命令触发：恢复本地会话，否则扫码登录并落盘；onQr/onVerifyUrl/onMfa 用于把二维码图/验证链接/验证码输入接到命令会话。 */
-  async login (
+  /**
+   * 由「抖音登录」命令触发：优先恢复本地会话；否则 SDK login() 扫码登录并落盘。
+   * onQr/onVerifyUrl/onMfa/onStatus 用于把二维码/验证链接/验证码输入接到命令会话。
+   */
+  async login(
     onQr?: (image: string, url?: string) => void,
     onVerifyUrl?: (url: string) => void,
     onMfa?: (info: { maskedMobile?: string; kind?: 'sms' | 'password' }) => string | Promise<string>,
     onStatus?: (status: string) => void,
   ): Promise<string> {
     const name = this.endpointName
-    // 保留旧连接直至新会话就绪：登录期间命令的二维码/提示回复仍须经 send() 送达（karin 同款：扫码不杀旧 ws）
-    const wasActive = !!this.#client
-    const record = await this.#restoreRecord()
-    if (record && !wasActive) {
-      await this.#connect(record)
-      this.#logger.info(formatCompact({ op: 'restore', uid: record.platformUid }))
-      return `douyin「${name}」已恢复本地会话（uid=${record.platformUid}）`
+    // 已登录直接返回，避免命令阻塞在重复扫码
+    if (this.#client) return `douyin「${name}」已登录（uid=${this.#client.id}）`
+    const account = await this.#options.accounts.get(this.#options.config.uid)
+    if (account) {
+      await this.#connect(account.record.cookie, account.uid)
+      this.#logger.info(`restored local session | uid: ${account.uid}`)
+      return `douyin「${name}」已恢复本地会话（uid=${account.uid}）`
     }
-    // 登录前置（对齐参考实现）：护照预热(设备认证凭据) → 注册设备签发 DID → ttwid 预热。
-    // 恒为 status=new 的根因是匿名 device_id=0 + 浏览器 UA，服务端无法把 App 扫码确认绑定到本会话。
-    await warmup(this.#options.http).catch(() => undefined)
-    let identity: DesktopDeviceIdentity | undefined
-    try {
-      identity = await setupDevice(join(this.#options.store.accountsDirectory, 'device.json'), this.#options.http)
-      this.#logger.info(formatCompact({ op: 'device', id: identity.deviceId, iid: identity.installId, ua: this.#options.http.getUserAgent() }))
-    } catch (error) {
-      this.#logger.warn(`device register skipped: ${error instanceof Error ? error.message : String(error)}`)
-    }
-    await twid(this.#options.http).catch(() => undefined)
-    const session = await runQrLogin({
-      http: this.#options.http,
-      assist: this.#options.loginAssist,
-      adapter: 'douyin',
-      endpointKey: this.#options.config.id,
-      owner: this.#loginOwner,
-      logger: this.#logger,
-      onQr,
+    const session = await login({
+      ...(this.#options.config.userAgent ? { userAgent: this.#options.config.userAgent } : {}),
+      log: this.#logger,
+      onQr: qr => onQr?.(qr.base64 ?? qr.url, qr.url),
       onVerifyUrl,
-      onMfa,
+      onMfa: async info => (onMfa ? await onMfa(info) : ''),
       onStatus,
     })
-    // 对齐参考实现 finishLogin：passport 的昵称是"用户xxx"默认名、avatar_url 是 mosaic 占位，
-    // 需用桌面 IM 自我资料（GET /aweme/v1/web/user/profile/self/）的真实昵称/头像覆盖后再落盘
-    const profile = await self(this.#options.http).catch((error) => {
-      this.#logger.debug(`[douyin] self profile fetch skipped: ${error instanceof Error ? error.message : String(error)}`)
-      return undefined
+    await this.#options.accounts.save(session.userId, {
+      cookie: session.cookie,
+      nickname: session.userData?.screen_name ?? session.userData?.name,
+      avatar: session.userData?.avatar_url,
     })
-    if (profile) {
-      session.userData = {
-        ...session.userData,
-        ...(profile.nickname ? { screen_name: profile.nickname, name: profile.nickname } : {}),
-        ...(profile.avatar ? { avatar_url: profile.avatar } : {}),
-      }
-      this.#logger.info(formatCompact({ op: 'self_profile', uid: session.platformUid, nickname: profile.nickname }))
-    }
-    this.#saveSession(session, identity)
-    const deviceId = identity?.deviceId ?? this.#options.store.ensureDeviceId(session.platformUid)
-    // 新会话就绪后才替换连接：先停旧 ws、解除旧事件绑定，再建新 client，避免 WS 残留
-    if (this.#client) {
-      this.#release?.()
-      this.#release = undefined
-      this.#bound = false
-      this.#client.stop()
-      this.#client = undefined
-    }
-    this.#client = this.#buildClient(session.platformUid, session.cookies, deviceId)
-    this.#bind()
-    await this.#client.start()
-    return `抖音账号 ${session.platformUid}(${name}) 登录成功`
+    await this.#connect(session.cookie, session.userId)
+    this.#logger.info(`login ok | uid: ${session.userId} (${session.userData?.screen_name ?? ''})`)
+    return `抖音账号 ${session.userId}(${name}) 登录成功`
   }
 
-  /** 就绪连接：注入会话凭据 → 应用设备信息 → 建 client → 绑定事件 → 启 WS → 打印加载统计。 */
-  async #connect (record: Rec): Promise<void> {
-    // 恢复的连接必须把会话 cookie 重新注入 HTTP 客户端，否则 imapi 网关无法识别会话
-    this.#options.http.setCookies(record.session.cookies)
-    if (record.session.msToken) this.#options.http.setMsToken(record.session.msToken)
-    this.#applyDevice(record)
-    this.#client = this.#buildClient(record.platformUid, record.session.cookies, record.session.deviceId)
+  async #connect(cookie: string, uid?: string): Promise<void> {
+    this.#client = new Bot({
+      cookie,
+      ...(uid ? { userId: uid } : {}),
+      ...(this.#options.config.userAgent ? { userAgent: this.#options.config.userAgent } : {}),
+      log: this.#logger,
+    })
     this.#bind()
     await this.#client.start()
   }
 
-  async #restoreRecord (): Promise<Rec | undefined> {
-    const store = this.#options.store
-    const configured = this.#options.config.uid
-    const account = configured
-      ? store.load(configured)
-      : store.list().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
-    return account && localRestore(account) === undefined ? account : undefined
-  }
-
-  #applyDevice (record: Rec): void {
-    if (record.deviceProfile) {
-      this.#options.http.setDevice(record.deviceProfile)
-      return
-    }
-    const deviceId = this.#options.store.ensureDeviceId(record.platformUid)
-    this.#options.http.setDevice({ deviceId, installId: '0', guid: this.#options.http.guid })
-  }
-
-  #buildClient (uid: string, cookies: string, deviceId?: string): Im {
-    return new Im({ http: this.#options.http, userId: uid, cookies, deviceId })
-  }
-
-  #saveSession (session: Qs, deviceProfile?: DesktopDeviceIdentity): void {
-    const store = this.#options.store
-    const uid = session.platformUid
-    const prev = store.load(uid)
-    const now = new Date().toISOString()
-    store.save(uid, {
-      platformUid: uid,
-      session: {
-        cookies: session.cookies,
-        msToken: this.#options.http.getMsToken(),
-        deviceId: deviceProfile?.deviceId ?? store.ensureDeviceId(uid),
-      },
-      ...(session.userData
-        ? {
-            userData: session.userData as Record<string, unknown>,
-            screenName: session.userData.screen_name ?? session.userData.name,
-            avatarUrl: session.userData.avatar_url,
-          }
-        : {}),
-      ...(prev?.ticketGuard ? { ticketGuard: prev.ticketGuard } : {}),
-      ...(deviceProfile
-        ? { deviceProfile }
-        : prev?.deviceProfile
-          ? { deviceProfile: prev.deviceProfile }
-          : {}),
-      createdAt: prev?.createdAt ?? now,
-      updatedAt: now,
-    })
-  }
-
-  /** 恢复连接后异步刷新本地会话的真实昵称/头像并回写 store（失败仅 debug，不阻断连接） */
-  async #refreshStoredProfile (uid: string): Promise<void> {
+  /** 连接后异步刷新本地会话的真实昵称/头像并回写（save 为 merge 语义，保留 cookie）。 */
+  async #refreshStoredProfile(uid: string): Promise<void> {
     try {
-      const prev = this.#options.store.load(uid)
-      if (!prev) return
-      const prevName = String(prev.userData?.screen_name ?? '')
-      const prevAvatar = String(prev.userData?.avatar_url ?? '')
-      // 已是真实昵称/头像（非护照默认名「用户xxx」、非 mosaic 占位）则跳过，避免每次重连重复拉取
-      if (!/^用户\d+$/.test(prevName) && prevAvatar && !prevAvatar.includes('mosaic')) return
-      const profile = await self(this.#options.http)
+      const profile = await this.#needClient().user.self()
       if (!profile.nickname && !profile.avatar) return
-      const userData = { ...(prev.userData ?? {}) }
-      if (profile.nickname) {
-        userData.screen_name = profile.nickname
-        userData.name = profile.nickname
-      }
-      if (profile.avatar) userData.avatar_url = profile.avatar
-      this.#options.store.save(uid, {
-        ...prev,
-        userData,
-        screenName: String(userData.screen_name ?? prev.screenName ?? ''),
-        avatarUrl: String(userData.avatar_url ?? prev.avatarUrl ?? ''),
-        updatedAt: new Date().toISOString(),
-      })
-      this.#logger.info(formatCompact({ op: 'self_profile_refresh', uid, nickname: profile.nickname }))
+      await this.#options.accounts.save(uid, { nickname: profile.nickname, avatar: profile.avatar })
+      this.#logger.info(`self profile refreshed | uid: ${uid} | ${profile.nickname ?? ''}`)
     } catch (error) {
-      this.#logger.debug(`[douyin] self profile refresh skipped: ${error instanceof Error ? error.message : String(error)}`)
+      this.#logger.debug(`self profile refresh skipped: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 
   /* -- 事件桥 -------------------------------------------------------------- */
 
-  #bind (): void {
+  #bind(): void {
     if (this.#bound) return
     const client = this.#client
     if (!client) return
     this.#bound = true
-    const onMessage = (message: InboundMessage): void => {
+    const onMessage = (message: BotMessage): void => {
       void this.#deliverMessage(message).catch(error => {
-        this.#logger.warn(formatCompact({ op: 'deliver_message_failed', error: String(error) }))
+        this.#logger.warn(`deliver message failed: ${String(error)}`)
       })
     }
     const onNotice = (event: NoticeEvent): void => { void this.#deliverNotice(event).catch(() => undefined) }
     const onRequest = (event: RequestEvent): void => { void this.#deliverRequest(event).catch(() => undefined) }
     client.on('message', onMessage)
+    client.on('message:edited', onMessage)
     client.on('notice', onNotice)
     client.on('request', onRequest)
     this.#release = () => {
       client.off('message', onMessage)
+      client.off('message:edited', onMessage)
       client.off('notice', onNotice)
       client.off('request', onRequest)
     }
   }
 
-  #release?: () => void
-
   /* -- 入站分发 ------------------------------------------------------------ */
 
-  async #deliverMessage (message: InboundMessage): Promise<void> {
+  async #deliverMessage(message: BotMessage): Promise<void> {
     const key = this.#options.config.id
     const incoming = inboundToIncoming(String(this.#options.id), key, message)
     this.#logger.info(
@@ -414,82 +290,95 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
       + ` | ${truncatePreview(message.text ?? '', 80)}`,
     )
     const id = message.serverMessageId ?? ''
-    this.#messageContent.set(id, {
-      ref: { conversation: incoming.conversation, id },
-      actor: incoming.sender,
-      segments: incoming.segments,
-      timestamp: Number(message.createTime ?? Date.now()) * 1000,
-      ...(message.reference
-        ? { replyTo: { conversation: incoming.conversation, id: message.reference.referencedMessageId } }
-        : {}),
-    })
+    if (id) {
+      if (this.#messages.size > 1000) {
+        const oldest = this.#messages.keys().next()
+        if (!oldest.done) this.#messages.delete(oldest.value)
+      }
+      this.#messages.set(id, message)
+    }
     try {
       await this.emit('message.receive', incoming)
     } catch (error) {
-      this.#logger.warn(formatCompact({ op: 'message_emit_failed', id, error: String(error) }))
+      this.#logger.warn(`message emit failed: ${String(error)}`)
     }
   }
 
-  async #deliverNotice (event: NoticeEvent): Promise<void> {
+  async #deliverNotice(event: NoticeEvent): Promise<void> {
     const key = this.#options.config.id
-    const uid = String((event as { uid?: unknown }).uid ?? '')
-    const sceneId = String((event as { sceneId?: string }).sceneId ?? '')
-    const sceneType =
-      (event as { sceneType?: string }).sceneType ?? (event.type.startsWith('group') ? 'group' : 'friend')
-    const dedupeKey = `notice:${event.type}:${sceneId}:${uid}`
+    const withActor = event as unknown as { recallUid?: string; peerUid?: string; operatorUid?: string; senderUid?: string; members?: { uid?: string; nickname?: string }[]; operators?: { uid?: string; nickname?: string }[]; conversationShortId?: string; conversationId?: string; conversationType?: number }
+    const actorUid = String(withActor.recallUid ?? withActor.peerUid ?? withActor.operatorUid ?? withActor.senderUid ?? withActor.members?.[0]?.uid ?? withActor.operators?.[0]?.uid ?? '')
+    const actorName = String(withActor.members?.[0]?.nickname ?? withActor.operators?.[0]?.nickname ?? '')
+    const sceneId = String(withActor.conversationShortId ?? withActor.conversationId ?? actorUid ?? '')
+    let sceneType = 'friend'
+    if (event.type.startsWith('group')) sceneType = 'group'
+    else if (event.type.startsWith('conversation') || event.type.startsWith('message')) {
+      sceneType = withActor.conversationType === 2 ? 'group' : 'private'
+    }
+    const dedupeKey = `notice:${event.type}:${sceneId}:${actorUid}`
     if (this.#dedupe(dedupeKey)) return
-    const id = `douyin:${event.type}:${sceneId}:${uid}`
-    const notice = buildNotice(event, {
-      $adapter: 'douyin' as never,
-      $endpoint: key,
-      $type: 'notice' as const,
-      $id: id,
-      $scene_id: sceneId,
-      $scene_type: sceneType,
-      $sub_type: event.type.replace(/^group\.|^friend\.|^conversation\.|^message\./, ''),
-      $actor: senderFromId(uid, String((event as { nickname?: unknown }).nickname ?? '')),
-      $timestamp: Date.now(),
-    })
+    const id = `douyin:${event.type}:${sceneId}:${actorUid}`
+    const subType = event.type.replace(/^group\.|^friend\.|^conversation\.|^message\./, '')
+    const notice = buildNotice<NoticeEvent>(event, {
+      id,
+      type: 'notice',
+      name: composeSideEventName('notice', sceneType, subType),
+      clientAdapter: 'douyin',
+      endpointId: key,
+      timestamp: Date.now(),
+      actor: senderFromId(actorUid, actorName || undefined),
+      ...(sceneId ? { conversation: { kind: sceneType === 'group' ? 'group' as const : 'private' as const, id: sceneId } } : {}),
+      // core 1.1.35/1.1.39 双版本类型分裂（旧 `$` 前缀 / 新命名），tools 断言规避 excess 检查
+    } as never)
     void this.emit('notice.receive', notice).catch(error => {
-      this.#logger.warn(formatCompact({ op: 'notice_emit_failed', id, error: String(error) }))
+      this.#logger.warn(`notice emit failed: ${String(error)}`)
     })
   }
 
-  async #deliverRequest (event: RequestEvent): Promise<void> {
+  async #deliverRequest(event: RequestEvent): Promise<void> {
     const key = this.#options.config.id
-    const scene = event.type === 'friend.request' ? 'friend' : 'group'
-    const sceneId = String(event.type === 'friend.request'
-      ? (event as { applicantUid?: unknown }).applicantUid ?? ''
-      : (event as { conversationShortId?: unknown }).conversationShortId ?? '')
-    const uid = String((event as { applicantUid?: unknown }).applicantUid ?? '')
-    const id = `douyin:${event.type}:${sceneId}:${uid}`
-    const reviewId = event.type === 'friend.request'
-      ? `friend:${uid}`
-      : `group:${String((event as { requestId?: unknown }).requestId ?? '')}`
-    const dedupeKey = `request:${event.type}:${sceneId}:${uid}`
+    const isGroup = event.type === 'group.join-request'
+    const scene = isGroup ? 'group' : 'friend'
+    const applicantUid = String((event as { applicantUid?: string }).applicantUid ?? '')
+    const sceneId = String(
+      (event as { conversationShortId?: string }).conversationShortId
+      ?? (event as { conversationId?: string }).conversationId
+      ?? applicantUid
+      ?? '',
+    )
+    const dedupeKey = `request:${event.type}:${sceneId}:${applicantUid}`
     if (this.#dedupe(dedupeKey)) return
-    const request = buildRequest(event, {
-      $adapter: 'douyin' as never,
-      $endpoint: key,
-      $type: 'request' as const,
-      $id: id,
-      $scene_id: sceneId,
-      $scene_type: scene,
-      $sub_type: 'add',
-      $actor:
-        senderFromId(uid, String((event as { applicantNickname?: unknown }).applicantNickname ?? ''))
-        ?? { id: uid, name: '' },
-      $comment: String((event as { message?: unknown }).message ?? ''),
-      $timestamp: Date.now(),
-      $approve: async () => { await this.#reviewRequest(reviewId, true) },
-      $reject: async () => { await this.#reviewRequest(reviewId, false) },
-    })
+    // 审定键：friend=uid / group=requestId（缺省时查群待审列表补首个）
+    let reviewKey: string
+    if (isGroup) {
+      const requestId = (event as { requestId?: string }).requestId
+        ?? (await this.#needClient().grp.requests(chatIdOf(event)).catch(() => []))[0]?.requestId
+        ?? ''
+      reviewKey = `group:${requestId}`
+    } else {
+      reviewKey = `friend:${applicantUid}`
+    }
+    const id = `douyin:${event.type}:${sceneId}:${applicantUid}`
+    const request = buildRequest<RequestEvent>(event, {
+      id,
+      type: 'request',
+      name: composeSideEventName('request', scene, 'add'),
+      clientAdapter: 'douyin',
+      endpointId: key,
+      timestamp: Date.now(),
+      actor: senderFromId(applicantUid, undefined) ?? { id: applicantUid, name: '' },
+      comment: String((event as { content?: string }).content ?? ''),
+      ...(sceneId ? { conversation: { kind: scene === 'group' ? 'group' as const : 'private' as const, id: sceneId } } : {}),
+      $approve: async () => { await this.#reviewRequest(reviewKey, true) },
+      $reject: async () => { await this.#reviewRequest(reviewKey, false) },
+      // core 1.1.35/1.1.39 双版本类型分裂（旧 `$` 前缀 / 新命名），tools 断言规避 excess 检查
+    } as never)
     void this.emit('request.receive', request).catch(error => {
-      this.#logger.warn(formatCompact({ op: 'request_emit_failed', id, error: String(error) }))
+      this.#logger.warn(`request emit failed: ${String(error)}`)
     })
   }
 
-  #dedupe (key: string): boolean {
+  #dedupe(key: string): boolean {
     const now = Date.now()
     const last = this.#sideSeen.get(key) ?? 0
     if (now - last < SIDE_EVENT_DEDUPE_HOLD_MILLIS) return true
@@ -499,180 +388,64 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
 
   /* -- 出站 ---------------------------------------------------------------- */
 
-  async send ({ conversation, payload }: EndpointSendRequest): Promise<string> {
-    this.#needClient()
-    const address = outAddr(conversation)
-    this.#logger.debug(formatCompact({ op: 'send_payload', raw: truncatePreview(JSON.stringify(payload), 300) }))
+  async send({ conversation, payload }: EndpointSendRequest): Promise<string> {
+    const bot = this.#needClient()
+    const chatId = outAddr(conversation)
     const segments: readonly Segment[] = typeof payload === 'string'
       ? [{ type: 'text', data: { text: payload } }]
       : Array.isArray(payload)
         ? payload
         : (payload ? [payload] : [])
     const chunk = extractSendChunk(segments)
-    this.#logger.debug(formatCompact({
-      op: 'send_chunk',
-      text: truncatePreview(chunk.text, 120),
-      media: chunk.media ? `${chunk.media.type}:${chunk.media.data.media.kind}` : undefined,
-      reply: chunk.reply ? chunk.reply.data.message_id : undefined,
-      forward: chunk.forward ? chunk.forward.data.forward_id : undefined,
-      unsupported: chunk.unsupported.length ? chunk.unsupported.map(segment => segment.type).join(',') : undefined,
-    }))
     if (chunk.unsupported.length) {
-      this.#logger.warn(formatCompact({
-        op: 'send_unsupported_segments',
-        types: chunk.unsupported.map(segment => segment.type).join(','),
-      }))
+      this.#logger.warn(`unsupported segments: ${chunk.unsupported.map(segment => segment.type).join(',')}`)
     }
     if (!chunk.text && !chunk.reply && !chunk.media && !chunk.forward) {
-      this.#logger.warn(formatCompact({ op: 'send_dropped', reason: 'empty_payload' }))
       throw new Error('douyin send dropped: 出站载荷为空，无有效文本/媒体/转发/引用内容')
     }
-    let response: SendMessageResponse
-    let phase = 'send'
-    try {
-      if (chunk.forward) {
-        phase = 'forward'
-        response = await this.#sendForward(address, chunk.forward.data.entries ?? [])
-      } else if (chunk.media && chunk.reply) {
-        phase = 'media+reply'
-        response = await this.#sendMedia(address, chunk.media, await this.#replyReference(chunk.reply.data.message_id))
-      } else if (chunk.reply) {
-        phase = 'reply'
-        response = await this.#sendReply(address, chunk)
-      } else if (chunk.media) {
-        phase = 'media'
-        response = await this.#sendMedia(address, chunk.media)
-      } else {
-        phase = 'text'
-        response = await this.#sendText(address, chunk.text, chunk.mentions)
-      }
-    } catch (error) {
-      this.#logger.debug(formatCompact({
-        op: 'send_failed',
-        phase,
-        error: error instanceof Error ? error.message : String(error),
-      }))
-      throw error
+    let response: SendResponse
+    if (chunk.forward) {
+      const nodes: ForwardNodes = chunksToForwardNodes(chunk.forward)
+      response = await bot.msg.send(chatId, { type: 'forward', nodes })
+    } else if (chunk.media && chunk.reply) {
+      this.#logger.warn('douyin 媒体消息不支持携带引用，忽略 reply 段')
+      response = await this.#sendMediaBody(bot, chatId, chunk.media)
+    } else if (chunk.reply) {
+      const ats = this.#atsOf(chunk.mentions)
+      response = await bot.msg.reply(chatId, this.#replyTarget(chunk.reply.data.message_id), chunk.text, ats && ats.length ? { ats } : undefined)
+    } else if (chunk.media) {
+      response = await this.#sendMediaBody(bot, chatId, chunk.media)
+    } else {
+      const ats = this.#atsOf(chunk.mentions)
+      response = await bot.msg.send(chatId, { type: 'text', text: chunk.text, ...(ats && ats.length ? { ats } : {}) })
     }
     const id = response.serverMessageId
-    if (!id || id === '0') {
-      const message = `douyin send failed: statusCode=${response.statusCode} msg=${response.statusMsg}`
-      this.#logger.debug(formatCompact({ op: 'send_failed', phase, error: message }))
-      throw new Error(message)
+    if (response.statusCode !== 0 || !id || id === '0') {
+      throw new Error(`douyin send failed: statusCode=${response.statusCode} msg=${response.statusMsg}`)
     }
-    this.#logger.debug(formatCompact({
-      op: 'send_ok',
-      phase,
-      id,
-      text: truncatePreview(chunk.text, 80),
-    }))
-    this.#logger.info(
-      `send ${conversation.kind}:${conversation.id}`
-      + ` | id: ${id}`
-      + ` | ${truncatePreview(chunk.text, 80)}`,
-    )
+    this.#logger.info(`send ${conversation.kind}:${conversation.id} | id: ${id} | ${truncatePreview(chunk.text, 80)}`)
     return id
   }
 
-  async #sendReply (address: ConversationAddress, chunk: SendChunk): Promise<SendMessageResponse> {
-    const target = await this.#replyTarget(chunk.reply!.data.message_id)
-    return this.client.reply({
-      ...address,
-      text: chunk.text,
-      referencedMessageId: target.id,
-      referencedMessageType: 1,
-      referencedUid: target.uid,
-      ...(target.name ? { nickname: target.name } : {}),
-    })
-  }
-
-  async #sendForward (address: ConversationAddress, entries: readonly ForwardEntry[]): Promise<SendMessageResponse> {
-    const selfUid = this.#options.config.uid ?? ''
-    const nodes = entries.map((entry, index) => ({
-      uid: entry.actor?.id ?? selfUid,
-      nickname: entry.actor?.displayName ?? '',
-      text: entry.segments.map(segmentToText).join(''),
-      msgType: 7,
-      aweType: 700,
-      msgId: String(BigInt(Date.now()) * 1000n + BigInt(index)),
-    }))
-    return this.client.sendMergeForward({ ...address, nodes, selfUid })
-  }
-
-  /** 发送媒体：image/video/file 直发，audio 降级为文件；可选携带引用（reply 段） */
-  async #sendMedia (address: ConversationAddress, segment: MediaSendSegment, reference?: SendMessageReference): Promise<SendMessageResponse> {
-    const bytes = await this.#mediaBytes(segment.data.media)
-    if (segment.type === 'image') {
-      return this.client.sendMedia({
-        ...address,
-        image: await this.client.uploadImage(bytes),
-        ...(reference ? { reference } : {}),
-      })
+  /** 媒体发送：image/video/file 直发简写源（SDK send 自动上传），audio 降级为文件。 */
+  async #sendMediaBody(bot: Bot, chatId: string, segment: MediaSendSegment): Promise<SendResponse> {
+    const media = segment.data.media
+    const input = await this.#mediaInput(media)
+    switch (segment.type) {
+      case 'image':
+        return bot.msg.send(chatId, { type: 'image', image: input })
+      case 'video':
+        return bot.msg.send(chatId, { type: 'video', video: { source: input } })
+      case 'audio':
+        this.#logger.warn('douyin 无原生语音通道，audio 降级为文件发送')
+        return bot.msg.send(chatId, { type: 'file', file: { source: input, name: media.file_name ?? segment.data.name ?? 'voice.bin' } })
+      default:
+        return bot.msg.send(chatId, { type: 'file', file: { source: input, name: media.file_name ?? 'file' } })
     }
-    if (segment.type === 'video') {
-      const asset = await this.client.uploadVideo(bytes)
-      const poster = { oid: '', skey: '', md5: asset.md5, dataSize: 0, width: 0, height: 0 }
-      return this.client.sendMedia({
-        ...address,
-        video: { asset, poster, width: 0, height: 0 },
-        ...(reference ? { reference } : {}),
-      })
-    }
-    if (segment.type === 'audio') {
-      this.#logger.warn(formatCompact({ op: 'send_audio_fallback', reason: 'no_native_voice_channel' }))
-      return this.client.sendMedia({
-        ...address,
-        file: await this.client.uploadFile(bytes, segment.data.media.file_name ?? segment.data.name ?? 'voice.bin'),
-        ...(reference ? { reference } : {}),
-      })
-    }
-    return this.client.sendMedia({
-      ...address,
-      file: await this.client.uploadFile(bytes, segment.data.media.file_name ?? 'file'),
-      ...(reference ? { reference } : {}),
-    })
   }
 
-  async #replyReference (messageId: string): Promise<SendMessageReference> {
-    const cached = this.#messageContent.get(messageId)
-    const hint = JSON.stringify({
-      refmsg_type: 1,
-      content: '',
-      refmsg_uid: cached?.actor?.id ?? '',
-      refmsg_sec_uid: '',
-      nickname: cached?.actor?.displayName ?? '',
-      refmsg_content: '',
-      version: 0,
-      itemId: '',
-      scene_type: 0,
-    })
-    return { referencedMessageId: messageId, hint }
-  }
-
-  async #sendText (address: ConversationAddress, text: string, mentions: readonly MentionSegment[]): Promise<SendMessageResponse> {
-    return this.client.sendText(address, text, this.#textMentions(text, mentions))
-  }
-
-  #textMentions (text: string, mentions: readonly MentionSegment[]): TextMention[] | undefined {
-    const result: TextMention[] = []
-    for (const mention of mentions) {
-      const needle = mention.data.name ?? mention.data.target
-      if (!needle) continue
-      const location = text.indexOf(needle)
-      if (location < 0) continue
-      result.push({ uid: mention.data.target, text: needle, location, length: needle.length })
-    }
-    return result.length ? result : undefined
-  }
-
-  async #replyTarget (messageId: string): Promise<{ id: string; uid: string; name: string }> {
-    const cached = this.#messageContent.get(messageId)
-    return { id: messageId, uid: cached?.actor?.id ?? '', name: cached?.actor?.displayName ?? '' }
-  }
-
-  async #mediaBytes (media: MediaRef): Promise<Uint8Array> {
-    // 兼容 dataURL：框架把业务侧 `data.url` 归一为 MediaRef(kind:'url')，
-    // 值可能是 `data:image/png;base64,...`，并非可请求的 http URL
+  /** MediaRef → SDK MediaInput：data: URI 剥离解码、base64 解码为字节，其余（URL/路径/裸 base64）原样交 SDK。 */
+  async #mediaInput(media: MediaRef): Promise<string | Uint8Array | ArrayBuffer> {
     const dataUrl = media.value.match(/^data:(?:[^;,]+)?(;base64)?,([\s\S]*)$/)
     if (dataUrl) {
       const [, encoded, body] = dataUrl
@@ -683,35 +456,54 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
     if (media.kind === 'base64') {
       return new Uint8Array(Buffer.from(media.value, 'base64'))
     }
-    if (media.kind === 'path' || media.kind === 'file') {
-      const { readFile } = await import('node:fs/promises')
-      return new Uint8Array(await readFile(media.value))
+    return media.value
+  }
+
+  /** 回复目标：优先取缓存 BotMessage（带引用元数据），未命中给最小兜底。 */
+  #replyTarget(messageId: string): BotMessage {
+    const cached = this.#messages.get(messageId)
+    if (cached) return cached
+    return {
+      cmd: 0,
+      conversationId: '',
+      conversationShortId: '',
+      conversationType: 1,
+      senderUid: '',
+      content: '',
+      messageType: 1,
+      serverMessageId: messageId,
+      createTime: String(Date.now() * 1000),
+      raw: {},
+      type: 'text',
+      text: '',
+    } as unknown as BotMessage
+  }
+
+  #atsOf(mentions: readonly MentionSegment[]): { uid: string; nickname?: string }[] | undefined {
+    const result: { uid: string; nickname?: string }[] = []
+    for (const mention of mentions) {
+      if (!mention.data.target) continue
+      result.push({ uid: mention.data.target, ...(mention.data.name ? { nickname: mention.data.name } : {}) })
     }
-    const response = await this.#options.http.requestBytes(media.value)
-    return response.data
+    return result.length ? result : undefined
   }
 
   /* -- control -------------------------------------------------------------- */
 
   readonly control: EndpointControl = Object.freeze({
     recall: async ({ conversation, id }) => {
-      this.#needClient()
-      const address = outAddr(conversation)
-      const { recalled } = await this.client.recall({ ...address, serverMessageId: id })
-      if (!recalled) throw new Error('douyin recall failed')
+      const bot = this.#needClient()
+      const { recalled, statusMsg } = await bot.msg.recall(outAddr(conversation), id)
+      if (!recalled) throw new Error(`douyin recall failed: ${statusMsg}`)
     },
     addReaction: async ({ conversation, id }, emoji) => {
-      this.#needClient()
-      const address = outAddr(conversation)
-      const uid = this.#options.config.uid ?? ''
-      await this.client.modifyReaction({ ...address, serverMessageId: id, emoji, operatorUid: uid, enabled: true })
+      const bot = this.#needClient()
+      await bot.msg.react(outAddr(conversation), id, emoji, true)
       return emoji
     },
     removeReaction: async ({ conversation, id }, reactionId) => {
-      this.#needClient()
-      const address = outAddr(conversation)
-      const uid = this.#options.config.uid ?? ''
-      await this.client.modifyReaction({ ...address, serverMessageId: id, emoji: reactionId, operatorUid: uid, enabled: false })
+      const bot = this.#needClient()
+      await bot.msg.react(outAddr(conversation), id, reactionId, false)
       return undefined
     },
   } satisfies EndpointControl)
@@ -720,58 +512,35 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
 
   readonly management: EndpointManagement = Object.freeze({
     listFriends: async () => {
-      this.#needClient()
-      const friends = await this.client.getFriendList()
+      const friends = await this.#needClient().frd.list()
       return friends.map(friend => ({ user_id: friend.uid, nickname: friend.nickname, remark: '' }))
     },
     listGroups: async () => {
-      this.#needClient()
-      const groups = await this.client.getGroupList()
+      const groups = await this.#needClient().grp.list()
       return groups.map(group => ({ group_id: group.conversationShortId, name: group.name }))
     },
     listChannels: async (): Promise<readonly EndpointChannel[]> => {
-      this.#needClient()
-      // 收件箱历史（cmd=203）恢复最近会话：私聊 + 群线程
-      const threads = await this.client.getRecentThreads()
-      // 群名补齐：cmd=2006 会话列表才有群名，cmd=203 群线程 peer 无昵称
-      const groups = await this.client.getGroupList()
-      const groupNames = new Map<string, string>()
-      for (const group of groups) {
-        if (group.name) {
-          groupNames.set(group.conversationShortId, group.name)
-          groupNames.set(group.conversationId, group.name)
-        }
-      }
-      return [...threads]
-        .sort((a, b) => b.updateTime - a.updateTime)
-        .map((thread): EndpointChannel | undefined => {
-          const id = thread.threadId || thread.conversationShortId || ''
-          if (!id) return undefined
-          const isGroup = thread.conversationType === 2
-          const peerName = (thread.peer?.nickname ?? '').trim()
-          const name = isGroup
-            ? groupNames.get(id) ?? groupNames.get(thread.conversationShortId ?? '') ?? ''
-            : peerName || (thread.peer?.uid ?? '')
-          return {
-            // 前缀自描述场景，host wireConversation 会剥离（channelType 缺省时据此定 kind）
-            id: `${isGroup ? 'group' : 'private'}:${id}`,
-            name: name || id,
-          }
-        })
-        .filter((channel): channel is EndpointChannel => channel != null)
+      const bot = this.#needClient()
+      const groups = await bot.grp.list()
+      const friends = await bot.frd.list()
+      return [
+        ...groups.map(group => ({ id: `group:${group.conversationShortId || group.conversationId}`, name: group.name || group.conversationShortId })),
+        ...friends.map(friend => ({ id: `private:${friend.conversationShortId || friend.conversationId}`, name: friend.nickname || friend.uid })),
+      ]
     },
     listGroupMembers: async (groupId) => {
-      this.#needClient()
-      const address = await this.#groupAddress(groupId)
-      if (!address) return []
-      const members = await this.client.getGroupMembers(address)
+      const bot = this.#needClient()
+      const rawId = groupId.replace(/^group:/, '')
+      const groups = await bot.grp.list()
+      const group = groups.find(item => item.conversationShortId === rawId || item.conversationId === rawId)
+      if (!group) return []
+      const members = await bot.grp.members(group.chatId)
       return members.map(member => ({ user_id: member.uid, nickname: member.nickname ?? member.uid }))
     },
     listRequests: async () => {
-      this.#needClient()
+      const bot = this.#needClient()
       const requests: EndpointPendingRequest[] = []
-      const friendRequests = await this.client.getFriendRequests()
-      for (const item of friendRequests) {
+      for (const item of await bot.frd.requests()) {
         requests.push({
           platform_request_id: `friend:${item.applicantUid}`,
           type: 'friend',
@@ -780,11 +549,10 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
           actor_id: item.applicantUid,
           actor_name: item.nickname ?? undefined,
           comment: item.message ?? undefined,
-          created_at: Number(item.requestedAt ?? Date.now()),
+          created_at: item.requestedAt ? Number(item.requestedAt) : Date.now(),
         })
       }
-      const groupRequests = await this.client.getGroupJoinRequests()
-      for (const item of groupRequests) {
+      for (const item of await bot.grp.requests()) {
         requests.push({
           platform_request_id: `group:${item.requestId}`,
           type: 'group',
@@ -792,12 +560,12 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
           scene_id: item.groupShortId,
           actor_id: item.applicantUid,
           actor_name: item.applicantNickname ?? undefined,
-          created_at: Date.now(),
+          created_at: item.createdAt ? Number(item.createdAt) : Date.now(),
         })
       }
       return requests
     },
-  approveRequest: async (requestId) => {
+    approveRequest: async (requestId) => {
       await this.#reviewRequest(requestId, true)
     },
     rejectRequest: async (requestId) => {
@@ -805,62 +573,62 @@ export class DouyinEndpoint extends ClientEndpoint<Im> {
     },
   } satisfies EndpointManagement)
 
-  async #reviewRequest (requestId: string, approve: boolean): Promise<void> {
-    this.#needClient()
+  async #reviewRequest(requestId: string, approve: boolean): Promise<void> {
+    const bot = this.#needClient()
     if (requestId.startsWith('friend:')) {
       const uid = requestId.slice('friend:'.length)
-      if (approve) await this.client.approveFriend(uid)
-      else await this.client.rejectFriend(uid)
+      if (approve) await bot.frd.approve(uid)
+      else await bot.frd.reject(uid)
       return
     }
     const id = requestId.startsWith('group:') ? requestId.slice('group:'.length) : requestId
-    if (approve) await this.client.approveGroupJoin(id)
-    else await this.client.rejectGroupJoin(id)
-  }
-
-  async #groupAddress (id: string): Promise<ConversationAddress | undefined> {
-    return groupAddr(await this.client.getGroupList(), id)
+    if (approve) await bot.grp.approve(id)
+    else await bot.grp.reject(id)
   }
 
   /* -- content port ---------------------------------------------------------- */
 
   readonly content: EndpointContentPort = Object.freeze({
-    resolve: async (reference: ConversationReference, _context: EndpointContentResolveContext) => {
+    resolve: async (reference: ConversationReference, _context: EndpointContentResolveContext): Promise<ConversationResolution> => {
       if (reference.kind !== 'message') {
         return { status: 'unsupported', code: 'douyin_unsupported_reference', message: reference.kind }
       }
-      const cached = this.#messageContent.get(reference.message.id)
-      if (cached) return { status: 'resolved', reference, value: cached }
+      const cached = this.#messages.get(reference.message.id)
+      if (cached) return { status: 'resolved', reference, value: this.#toConversationMessage(cached) }
       const messages = await this.#historyLookup(reference.message.conversation, reference.message.id)
       if (messages.length === 0) {
         return { status: 'not_found', code: 'douyin_message_not_observed', message: reference.message.id }
       }
-      const value = messages[0]
-      return { status: 'resolved', reference, value }
+      return { status: 'resolved', reference, value: messages[0] }
     },
   } satisfies EndpointContentPort)
 
-  async #historyLookup (conversation: ConversationRef, targetId: string): Promise<ConversationMessage[]> {
-    this.#needClient()
-    const address = outAddr(conversation)
-    const history: ChatMessage[] = await this.client.getChatHistory({ ...address, count: 30 })
-    const found = history.find(message => message.msgId === targetId)
-    if (!found) return []
-    const inbound = await this.#historyToInbound(conversation, found)
-    return [inbound]
+  #toConversationMessage(message: BotMessage): ConversationMessage {
+    const incoming = inboundToIncoming(String(this.#options.id), this.#options.config.id, message)
+    const conversation = incoming.conversation as ConversationRef
+    return {
+      ref: { conversation, id: message.serverMessageId ?? '' },
+      actor: incoming.sender,
+      segments: incoming.segments,
+      timestamp: Number(message.createTime ?? Date.now()) / 1e3,
+      ...(message.reference
+        ? { replyTo: { conversation, id: message.reference.referencedMessageId } }
+        : {}),
+    }
   }
 
-  async #historyToInbound (conversation: ConversationRef, found: ChatMessage): Promise<ConversationMessage> {
-    const { parseMsg } = await import('./im/content.js')
-    const parsed: ParsedMessageContent = parseMsg(found.content, found.msgType)
-    const text = parsed.text || '[非文本消息]'
-    const segments: Segment[] = [{ type: 'text', data: { text } }]
-    return {
+  /** content 未命中缓存时回溯会话历史查找目标消息（SDK createTime 为微秒，转毫秒 /1e3）。 */
+  async #historyLookup(conversation: ConversationRef, targetId: string): Promise<ConversationMessage[]> {
+    const bot = this.#needClient()
+    const history = await bot.chat.history(outAddr(conversation), { count: 30 })
+    const found = history.find(message => message.msgId === targetId)
+    if (!found) return []
+    return [{
       ref: { conversation, id: found.msgId },
       actor: senderFromId(found.senderUid, undefined),
-      segments,
-      timestamp: found.createTime * 1000,
-    }
+      segments: [{ type: 'text', data: { text: found.content || '[非文本消息]' } }],
+      timestamp: found.createTime / 1e3,
+    }]
   }
 }
 
@@ -884,14 +652,27 @@ export interface SendChunk {
   unsupported: Segment[]
 }
 
-function segmentToText (segment: Segment): string {
+function segmentToText(segment: Segment): string {
   if (segment.type !== 'text') return ''
-  const text = segment.data.text
+  const text = (segment as TextSegment).data.text
   return typeof text === 'string' ? text : ''
 }
 
+/** 合并转发 entries → SDK ForwardNode[]（msgId 用时间戳生成，保证同批唯一）。 */
+function chunksToForwardNodes(forward: ForwardSegment): ForwardNodes {
+  return (forward.data.entries ?? []).map((entry, index) => ({
+    uid: entry.actor?.id ?? '',
+    nickname: entry.actor?.displayName ?? '',
+    text: entry.segments.map(segmentToText).join(''),
+    msgType: 7,
+    aweType: 700,
+    msgId: String(BigInt(Date.now()) * 1000n + BigInt(index)),
+    ...(entry.timestamp ? { createTime: Number(entry.timestamp) } : {}),
+  }))
+}
+
 /** 从 canonical segments 提取单一发送原语：文本 / @ / 媒体 / 转发 / 引用 + 未支持段。 */
-export function extractSendChunk (segments: readonly Segment[]): SendChunk {
+export function extractSendChunk(segments: readonly Segment[]): SendChunk {
   const reply = segments.find((segment): segment is ReplySegment => segment.type === 'reply')
   const media = segments.find((segment): segment is MediaSendSegment => {
     return segment.type === 'image' || segment.type === 'video' || segment.type === 'file' || segment.type === 'audio'

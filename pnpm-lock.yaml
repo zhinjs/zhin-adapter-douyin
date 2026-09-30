@@ -9,50 +9,47 @@ importers:
   .:
     dependencies:
       '@zhin.js/adapter':
-        specifier: latest
-        version: 1.1.12
+        specifier: ^1.1.15
+        version: 1.1.15
       '@zhin.js/adapter-qq':
         specifier: ^1.1.0
-        version: 1.1.0(@zhin.js/adapter@1.1.12)(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.0)(@zhin.js/core@1.1.35(zod@4.6.5))(@zhin.js/middleware@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
+        version: 1.1.0(@zhin.js/adapter@1.1.15)(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.3)(@zhin.js/core@1.1.39)(@zhin.js/middleware@1.1.2)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
       '@zhin.js/adapter-sandbox':
         specifier: 1.1.0
-        version: 1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@zhin.js/adapter@1.1.12)(@zhin.js/console-contract@1.1.0)(@zhin.js/core@1.1.35(zod@4.6.5))(@zhin.js/host-http@1.1.0)(@zhin.js/page@1.1.0)(ai@7.0.105(zod@4.6.5))(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
+        version: 1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@zhin.js/adapter@1.1.15)(@zhin.js/console-contract@1.1.1)(@zhin.js/core@1.1.39)(@zhin.js/host-http@1.1.2)(@zhin.js/page@1.1.3)(ai@7.0.105(zod@4.6.5))(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
       '@zhin.js/agent':
-        specifier: latest
-        version: 1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+        specifier: ^1.1.28
+        version: 1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
       '@zhin.js/core':
-        specifier: ^1.1.35
-        version: 1.1.35(zod@4.6.5)
+        specifier: ^1.1.39
+        version: 1.1.39
       '@zhin.js/database':
-        specifier: latest
-        version: 1.1.0
+        specifier: ^1.1.2
+        version: 1.1.2
       '@zhin.js/im-contract':
-        specifier: latest
-        version: 1.1.0
+        specifier: ^1.1.2
+        version: 1.1.2
       '@zhin.js/logger':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
       '@zhin.js/permission':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.3
+        version: 1.1.3
       '@zhin.js/plugin-60s':
         specifier: ^1.1.0
-        version: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
+        version: 1.1.0(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.3)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
       '@zhin.js/plugin-music':
         specifier: ^1.1.0
-        version: 1.1.0(@zhin.js/command@1.1.0)(@zhin.js/component@1.1.0)(@zhin.js/middleware@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
+        version: 1.1.0(@zhin.js/command@1.1.3)(@zhin.js/component@1.1.2)(@zhin.js/middleware@1.1.2)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
       '@zhin.js/plugin-tic-tac-toe':
         specifier: ^1.1.0
-        version: 1.1.0(@zhin.js/command@1.1.0)(@zhin.js/middleware@1.1.0)(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
-      protobufjs:
-        specifier: ^8.8.0
-        version: 8.8.0
-      ws:
-        specifier: ^8.21.1
-        version: 8.21.3
+        version: 1.1.0(@zhin.js/command@1.1.3)(@zhin.js/middleware@1.1.2)(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
+      douyin.ts:
+        specifier: ^0.6.1
+        version: 0.6.1(typescript@6.0.3)
       zhin.js:
-        specifier: latest
-        version: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+        specifier: ^1.1.4
+        version: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
       zod:
         specifier: latest
         version: 4.6.5
@@ -60,12 +57,9 @@ importers:
       '@types/node':
         specifier: ^25.0.0
         version: 25.9.7
-      '@types/ws':
-        specifier: ^8.18.1
-        version: 8.18.1
       '@zhin.js/cli':
-        specifier: latest
-        version: 1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@types/node@25.9.7)(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)
+        specifier: ^1.1.6
+        version: 1.1.6(@ai-sdk/openai@4.0.69(zod@4.6.5))(@types/node@25.9.7)(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)
       pm2:
         specifier: ^6.0.0
         version: 6.0.14
@@ -96,6 +90,23 @@ packages:
   '@ai-sdk/provider@4.0.17':
     resolution: {integrity: sha512-VYMBxIQdcHqbIf1j+YZlI9Ati6LZ4wJe0GGd4z4a5H/KxTggjeOiyaVYTnfF7LHZK5jMQ+rofmzz4QPqf++NUw==}
     engines: {node: '>=22'}
+
+  '@babel/helper-string-parser@7.29.7':
+    resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/helper-validator-identifier@7.29.7':
+    resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/parser@7.29.9':
+    resolution: {integrity: sha512-CjXrNHTnvqBVqHgdBysY3vk2T8tpJHb5/RMeHJBTyVa9xgugCB0CJTx/3oO8RV2QRQP391RWpB7D6hLjm8V9uA==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  '@babel/types@7.29.8':
+    resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
+    engines: {node: '>=6.9.0'}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -387,11 +398,161 @@ packages:
       '@types/node':
         optional: true
 
+  '@jridgewell/sourcemap-codec@1.6.0':
+    resolution: {integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==}
+
   '@koa/router@15.7.0':
     resolution: {integrity: sha512-WaAlk4TOl/O0rhTpOR0l052gz03syPMmI6Pe2gd7v3ubjfv5UcSGcnb0Y/J5NNC/ln+5FiUqPJTc/a15I+XqAA==}
     engines: {node: '>= 20'}
     peerDependencies:
       koa: ^2.0.0 || ^3.0.0
+
+  '@napi-rs/image-android-arm64@1.15.0':
+    resolution: {integrity: sha512-BhW7Zyk0Y17FNWcrc+7bwK8Yo9gdt/OsB5AsK3yvu+z3pCvVtztjuANNfdwcC2KHolJkJWeu42ZfC0qwBYB57A==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@napi-rs/image-darwin-arm64@1.15.0':
+    resolution: {integrity: sha512-HHUDoMil1WONvbFs97FBtO2G0C6Xjzo7G4Ioywn/wmEgFFgWdlNO0n1ARp3WsnssH4j89rDEVHfkpjrwNa96OQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@napi-rs/image-darwin-x64@1.15.0':
+    resolution: {integrity: sha512-CIEDQYJEjk81TIM2tpWj1T6R9RkzZU7rVwBw/6+El/tcER+v9HF4oZIp+YLUMT3G5kVXqoNtda8mRcTs9CUwMw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@napi-rs/image-freebsd-x64@1.15.0':
+    resolution: {integrity: sha512-ztYxPGsPEpw8Odc2d9w6+gLkEe1Ocifjae938DFFKytYztRcFenFIq+6Ha6fsnr/4LtZHH70GnBwB0lhM8dwtQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@napi-rs/image-linux-arm-gnueabihf@1.15.0':
+    resolution: {integrity: sha512-Pgnt8ekNnYmDX/dB2n+o3WABojL2u9vrceoSa85VFa1zs5fMy+k6z1UCjDgDwpQOSmq2AotTABedvL8vqZKDJA==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@napi-rs/image-linux-arm64-gnu@1.15.0':
+    resolution: {integrity: sha512-/4XHp1GbXNfVmMQYmyUAErMBXaAxGF3JZnv+Q73P9jhEwfOvgl3CUTCZwZEivScIbVjdxrcQnlWw9xSzZXsx3w==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@napi-rs/image-linux-arm64-musl@1.15.0':
+    resolution: {integrity: sha512-jjqW0eg09OY2rYZl07tHNKKXqwwHNgeuwQyU2/1OX34qFoc1nfmITaud2WAuaAjmVnxbYpigs0JQiAHYTs0koA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@napi-rs/image-linux-x64-gnu@1.15.0':
+    resolution: {integrity: sha512-IiayUG47OTY89iPLiN/wtnIwqOqtHbO1W/h5aZdSzfQa7Ke0NlNuUsE4qkbLIkInYyd7gWSs1GiX8+VpewIhZw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@napi-rs/image-linux-x64-musl@1.15.0':
+    resolution: {integrity: sha512-EqHJBpf+LXB47Andl5IWaP2Tdavb3ehH3a9/cLkBAZ3mW07h1PTnhNHtWbxP/O2RkBCr87gi92OVA+1J2KSJKg==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@napi-rs/image-win32-arm64-msvc@1.15.0':
+    resolution: {integrity: sha512-n34XcQjrMAQZ8/O2uK/E+rqVo+G0h4Y6eDMvJduZWVL7c9fpcfiSWaUDdaw+6lz3RugauJ97ectCDk5LTlXnjg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@napi-rs/image-win32-ia32-msvc@1.15.0':
+    resolution: {integrity: sha512-SOs9Mc5/7cMMu3vXl97SwvlG2l4jcACcLTcPotl6N3u/Vi8N6Qc6rnxqol2L5KRzLkmULgs3nNx/OqFEvpPpsg==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@napi-rs/image-win32-x64-msvc@1.15.0':
+    resolution: {integrity: sha512-3S4O+oJnLZ3MmWYhGLPwqlNoNLu2GP2ZIXlJrTXDvCqxq9Qpb4lh4ymAUKvztxkQn6CsPLUa4j2XR5GydFBrwg==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@napi-rs/image@1.15.0':
+    resolution: {integrity: sha512-WtMwFCgKDPcWLKH3Ooy8pCTMmjwC3NNlBicb5Qaqx0PafOjbRQ/zx5ZEWlxnjTFfMWIW3ptskuX8wt4NXJvvVg==}
+    engines: {node: '>= 10'}
+
+  '@napi-rs/webcodecs-darwin-arm64@1.4.2':
+    resolution: {integrity: sha512-mdRVrGTnmREcegTAqjQt9U0l0Fn0RYoR3ydQMPzYEB9+KDLSskEf+oUxoK/S0rkxsK03YTkb/UlgYEsV6EpPug==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@napi-rs/webcodecs-darwin-x64@1.4.2':
+    resolution: {integrity: sha512-Ltdf1Q7T6l/iLF8OJTaIo9xqHjasqlkR6bi5CTfYB7oozKd0+I98ZSSBkyGSNRRaMoMOGySYFeTwUIOwFhaH/g==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [x64]
+    os: [darwin]
+
+  '@napi-rs/webcodecs-linux-arm-gnueabihf@1.4.2':
+    resolution: {integrity: sha512-QHgmYq5v1ErAk/g2NVngTtjrr+TuzAB+0ddHobKDzk4zEXWYAGN3MtP0fOm7lYoHLPm4vuJ1+hBcz8rdGLhwHg==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [arm]
+    os: [linux]
+
+  '@napi-rs/webcodecs-linux-arm64-gnu@1.4.2':
+    resolution: {integrity: sha512-lLMU7NsVCvM56XxaAN6QGMb4KGlCE9P+1oFEUjFLMT1Tmguk2xOVXWiYC1Bm+vfnGLE3juzVocaO+6+WU04I8g==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@napi-rs/webcodecs-linux-arm64-musl@1.4.2':
+    resolution: {integrity: sha512-EawvUnAX8WMv31PWPx6u+WglLbHCmqQWCRlMrjbmZJl7HekuYFePwM5WkSvhYyVrGuc3hXUXqhu4Zfs7Lh850g==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@napi-rs/webcodecs-linux-x64-gnu@1.4.2':
+    resolution: {integrity: sha512-008pKr+CtfVPQfpPrvZDhd3KtcqEktM31o3EI4z5F14avFP/yohPILXm0mvzw4lFxq6QTsyfKtjnAA2kzFF1mw==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@napi-rs/webcodecs-linux-x64-musl@1.4.2':
+    resolution: {integrity: sha512-AABKEHbPeoWCFuwacbpVBv4g4GESCcm7J357DbMkK2XmzHf3N+lJjbLH6hEYBcEz46dXZX8yr9jRUTbSa+NoCA==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@napi-rs/webcodecs-win32-arm64-msvc@1.4.2':
+    resolution: {integrity: sha512-NPwZn6rGY8tDm51rn3f7rAYeuBr19xsXObhz3mEEXKS4iJw7DdD/sC9/pvShIRcjMsNWGRTHzuRauMnQINBFuA==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [arm64]
+    os: [win32]
+
+  '@napi-rs/webcodecs-win32-x64-msvc@1.4.2':
+    resolution: {integrity: sha512-wwT8TZ0zDKefaBYCsGbOk1CTZAXMxC7k8xaY97e7+S/sD7rjvxXfK4DPjynSHSZwl/rowrGqmj/ib9dF/4K+BA==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    cpu: [x64]
+    os: [win32]
+
+  '@napi-rs/webcodecs@1.4.2':
+    resolution: {integrity: sha512-Dwz1nYx1ZZbzv9rhSuYcELJD7T+wS4vnoDBkSAVsKiCEYQ71lfJ2yv6gWSDoNnjjJd2Dp0P8CvzjFZBdZ4/M0Q==}
+    engines: {node: ^22.20 || ^24.12 || >=25}
+    peerDependencies:
+      '@napi-rs/canvas': '>=0.1.0'
+    peerDependenciesMeta:
+      '@napi-rs/canvas':
+        optional: true
 
   '@noble/curves@1.9.7':
     resolution: {integrity: sha512-gbKGcRUYIjA3/zCCNaWDciTMFI0dCkvou3TL8Zmy5Nc7sJ47a0jtOeZoTaMxkuqRo9cRhjOdZJXegxYE5FN/xw==}
@@ -434,12 +595,36 @@ packages:
   '@types/node@25.9.7':
     resolution: {integrity: sha512-Y+axoNWOFLvDNFxNbDA+kqqV05imHwTu5bZWWO6tQM3Y2NX1jvzUJkYlf4nYnMCnvu4wQBKW6Nr+ok6yHWA9aQ==}
 
-  '@types/ws@8.18.1':
-    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
-
   '@vercel/oidc@3.2.0':
     resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
     engines: {node: '>= 20'}
+
+  '@vue/compiler-core@3.5.43':
+    resolution: {integrity: sha512-zdiLhnbe1QQqgDT8xZMpNmyqZ3qlI+/Q/FHQco57Kwl/b05HhCzN6eVGN9QU9rbga4CrS0H5SYY8VGHZCt/1Hg==}
+
+  '@vue/compiler-dom@3.5.43':
+    resolution: {integrity: sha512-PEZoAk3NQmsn/ejMzSOCyTYqwGqczrWm70PuhBKjjv1+TCoQAaO/zOqNwjV+honlNstT5ILxtc+8r8UUfj+iEQ==}
+
+  '@vue/compiler-sfc@3.5.43':
+    resolution: {integrity: sha512-FCbrG3XNCRl+js3huuKx4IVHBLTvMkJhVepjbxSPu1gn4yWLaYtGNQdjJGZaMytXB6qb76qQDDmDSLy/vkmleQ==}
+
+  '@vue/compiler-ssr@3.5.43':
+    resolution: {integrity: sha512-GF62orf7KiJX9RqrHNGrYBudsQGD0OhJ5nDs90O8UiDuS40+YMYomiXu6w6EuvtXuRDc3MSNis3EaaSKAVSWpg==}
+
+  '@vue/reactivity@3.5.43':
+    resolution: {integrity: sha512-G/c9GyOZNI2jVaaS6OX1EF1SSFSv7H0ERqNTl4+DTFMlZmB5eVAB53aLQNam/7NL2NPtaDD7RdVrzf8uJzMuOA==}
+
+  '@vue/runtime-core@3.5.43':
+    resolution: {integrity: sha512-hU6U6VnVhBGQDpvlnnDlIB8ZGJBiOcgk2lh/0InltHiz3D8oSkluvuvY+do1G2H3+udeKFsmaBlgVYP7gXQzEw==}
+
+  '@vue/runtime-dom@3.5.43':
+    resolution: {integrity: sha512-Bb2Jc0YjjJdMt1SJmb9b2L/IWd3I8lIT9x9eS/xvvP9CiVgna0ffua74xKRmt4/uSJ+0r4iN8ex1jrqkhQGWQw==}
+
+  '@vue/server-renderer@3.5.43':
+    resolution: {integrity: sha512-l2Ygjv9NehV94PSBxNWsAHC0j/eIIKbn92mBuWXAPGLnn6HfJ6MH5ubsd+Nk0YoZ5FRuxWI1P2VSoh+dbPQhCQ==}
+
+  '@vue/shared@3.5.43':
+    resolution: {integrity: sha512-uksS7YGMR5NZyr4JNq0Rp+QyLns0ueaz20KwzIPW9R0LH1Vnt4E+XUM29PNseEbf1www2gOuhuDi5AKOIXag9Q==}
 
   '@workflow/serde@4.1.0':
     resolution: {integrity: sha512-pav4F2BoirECWR7Nf1TKt+2eETcBj7jj4cBefQ8VXQCA6NPkaKeLfj/zMgi+3zYV5ZIBT4GuUiphsj0/b9hPQQ==}
@@ -486,12 +671,16 @@ packages:
     resolution: {integrity: sha512-28/GPdoDvB/xtG4GEo/GnTrL55fxHgpnCOLFXzgki+iNAZQMzv3osVIKcpdk8sqbI8CBVbfyfuNxnkcNUTBHzg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/agent-feature@1.1.0':
-    resolution: {integrity: sha512-z+xSycnEQzZIaSiUJwMVxAyeD249s6IgeCbeLZrMwWlSu+qB6nZw/uKrLH2LbN5D1Tj52LK2cUGmXHDiR9aC9w==}
+  '@zhin.js/adapter@1.1.15':
+    resolution: {integrity: sha512-6nLY1whENyFkqNd1LA4NIkCl9MDwLHxy1yPO7d9vQLi0Avy/tK1+JT+YhTEq5hSM+Pt+thggpOzSJo+6674Ejg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/agent@1.1.23':
-    resolution: {integrity: sha512-4Ng/m4WyIws6vkJ/BT2FpEwJ7Z7jPR/XXu6R670eYtLr34fnc2h85cthUrG2hZu7Y2FNkCZiuQjE6k2fu9JEVA==}
+  '@zhin.js/agent-feature@1.1.2':
+    resolution: {integrity: sha512-rncAgTga/n5X4o8hNen438kBLNqWkguYKp3jTTWjwySKmSXrxGdQCIl0d7F9rg0WfsRMmYeeZtbjVbIxBmSA/A==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/agent@1.1.28':
+    resolution: {integrity: sha512-5XtmM/gqjlPpdu7DmRhTDbN9aQgwcvAaAidFaZHEU5zQtYYIRoSBOKMdPQjRYng87v/ytDMyP/962T8RL4MKww==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@modelcontextprotocol/sdk': ^1.29.0
@@ -523,12 +712,35 @@ packages:
       '@ai-sdk/openai-compatible':
         optional: true
 
-  '@zhin.js/cli@1.1.0':
-    resolution: {integrity: sha512-arn67vz92xt5BI+TvfizGaMcA6T+XFSdCeSHG2ZOtIMz86EB81cMGgYL7yyVPcHQF5J2UCV5MJ6gQRrTx1iv7g==}
+  '@zhin.js/ai@1.1.35':
+    resolution: {integrity: sha512-94kcfE1W0ZzUeEDigmYfQqczLr3YVR3Z1E1J1Ge2CoxDcPVtL2/dft9IigECcwLxDmxwxTbCqXoaSoxuE2tlAQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      '@ai-sdk/anthropic': ^4.0.9
+      '@ai-sdk/deepseek': ^3.0.5
+      '@ai-sdk/google': ^4.0.9
+      '@ai-sdk/openai': ^4.0.8
+      '@ai-sdk/openai-compatible': ^3.0.5
+      ai: ^7.0.0
+      zod: ^4.0.0
+    peerDependenciesMeta:
+      '@ai-sdk/anthropic':
+        optional: true
+      '@ai-sdk/deepseek':
+        optional: true
+      '@ai-sdk/google':
+        optional: true
+      '@ai-sdk/openai':
+        optional: true
+      '@ai-sdk/openai-compatible':
+        optional: true
+
+  '@zhin.js/cli@1.1.6':
+    resolution: {integrity: sha512-xGJzALI6Mzyv3uO1T0MEjKXqd11P0UyfGq+ZbQ//N5tclEOwmoKT5QnBtQeWlSM7JdWzapObcwUlpclF79jbiA==}
     hasBin: true
     peerDependencies:
-      '@zhin.js/a2a': ^1.1.0
-      '@zhin.js/agent': ^1.1.23
+      '@zhin.js/a2a': ^1.1.4
+      '@zhin.js/agent': ^1.1.28
       '@zhin.js/speech': ^1.1.0
       typescript: '>=5.8.0 <7.0.0'
     peerDependenciesMeta:
@@ -551,24 +763,40 @@ packages:
     resolution: {integrity: sha512-5B5g27qSnoM28M6hayNUlq+FTjgfpUqKhT1yQZyFCb6EANTFMJNc1BnBoBB26qGHHzDd1hz1M0lE6mCMETSh0A==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/command@1.1.3':
+    resolution: {integrity: sha512-TU1fV6LoXMbXz1lYUl+UZBLE0Aj4AXXwT4YAPFqTpqK1tKy53Es73tAWG/5i10GeTUDOkQp2HOvRCrFmInFo4w==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/component@1.1.0':
     resolution: {integrity: sha512-leveYFpB6SqRy/4/3aTLr5loo4GfjpeRnBNsQe3maWqbMVnuIlfJUszm9eZbU1kkT67ydNH2g6y3SBdTAYK6RA==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/config-yaml@1.1.0':
-    resolution: {integrity: sha512-tkW/nu3VpFcFwF90LE+APH6tN87la4IP7ntZeqJ7aEt/jJ08DQ6lN5LFkAPhuelheDF+ESEUylFNGbj9TFb30Q==}
+  '@zhin.js/component@1.1.2':
+    resolution: {integrity: sha512-mZz3fV+knxmXGBjpbQ47YlQ2icP1WKUosdDw8TcT+Tah1nbgPeCIAY5/HPUjJ6tC34JnmsSSXB4xvuqIm5fS0A==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/console-contract@1.1.0':
-    resolution: {integrity: sha512-l5K4Ai7c2wSqYgKP2qF178wGbO+Ft3ZUpX4gaMNZIeLXOUFTS4t5A677ahf5gmsRQqfjRumpHBhd6Jzta6raKg==}
+  '@zhin.js/config-file@1.1.2':
+    resolution: {integrity: sha512-jv3a9+va13NAsiv0/7Y+bvrkt5KWPXQ2GXl2apUp+mygXwX1+A2MqdQl+k0x5IdRG+mxeqB5V7jCh3O8QfqAqg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/console-contract@1.1.1':
+    resolution: {integrity: sha512-cfI6oC3EjazjGKhAIyz/OjpYspZAg+nfBmxTXk5PbR3XFR3+l4DjdMEynXP5uxLCMy/pichpho4IWtPYtRdsqw==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/console-protocol@1.1.5':
     resolution: {integrity: sha512-GqLcDIzJhKWu3qNBz+Vb5/0v5UsoKh6b3aM8kuU9P4HwOlFbpMPT4R9/5WfxfsiNi1MACU4j4bAdKsLZANuMwA==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/console-protocol@1.1.6':
+    resolution: {integrity: sha512-9HZZzo5arxG6OHDGqJKyB+OYAsZcBZanE+4rEGHbUNvthxTD1rRZGXddWb2vuNJvY9k5xz/eE79t6WTFSgZ8pQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/contract@1.1.0':
     resolution: {integrity: sha512-JZ0+/mm0YAiqyUXv9wV+psnLa8n5ISVXqboqCS+KI0bqU8L2VysD0hvcigsEm6b4KMC+TLPeQsyksrlYUGKYKg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/contract@1.1.2':
+    resolution: {integrity: sha512-YeJM6QEArzcw65Pos0F6/wAU8wRs6MT2P+sSUrJIosqkeYdGWMw6O1YUTeVzTjin58W4W4YNI+vVNsB82Yb4vQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/core@1.1.35':
@@ -580,8 +808,30 @@ packages:
       zod:
         optional: true
 
+  '@zhin.js/core@1.1.39':
+    resolution: {integrity: sha512-Ae0SIgXn1JIuyFRlSvT/bACYhVhhfMTOmEOBECioD7P66aPcHY62lORWRGc5qC1EERH/FpSb1byTwPvsNs+96Q==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/database@1.1.0':
     resolution: {integrity: sha512-+QDiLdFjNkzJZlg4xSCZImfW17eVQQDV07lpOdKmEIiUZsqTbefH9ZTKp28AN2MX8eRDpV1HtBDkhdD25e7ngQ==}
+    engines: {node: '>=22.5.0'}
+    peerDependencies:
+      mongodb: '>=3.1.13'
+      mysql2: '>=3.9.8'
+      pg: '>=2.11.2'
+      redis: latest
+    peerDependenciesMeta:
+      mongodb:
+        optional: true
+      mysql2:
+        optional: true
+      pg:
+        optional: true
+      redis:
+        optional: true
+
+  '@zhin.js/database@1.1.2':
+    resolution: {integrity: sha512-C5mtkbqchxm/W4wJPyTaEP5E7xKBO29O/lpgRJL5BA4EbdTbB0fldDpomFpOuuMvS6CPESFTI3Bkafr+pYoK0w==}
     engines: {node: '>=22.5.0'}
     peerDependencies:
       mongodb: '>=3.1.13'
@@ -602,6 +852,10 @@ packages:
     resolution: {integrity: sha512-2RzYMdZUhZitCkGWJu5VHLLhuYKXFXU1dzscPSe4TrXn13mq50g4vYmMVuyBGw9wxZTLHFMW5cO3DgNuU/6U9g==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/feature-kit@1.1.2':
+    resolution: {integrity: sha512-o2TIlqLtl+VQG8ojXp9Z5grPCDMI7rSAfI3M83gvWsGx+wiRPVJ7kuAHUvhUSfRcfTP7FLyP7NrUq/RrahVcbQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/game-kit@1.1.0':
     resolution: {integrity: sha512-TuklWlmuaQZTX5LmWfHYE8UpTuCw09vHudv600y0vRigVd0i095qq58GN/DF4Rqot4PWE8DK1izmvL0BCoGxjw==}
     peerDependencies:
@@ -615,6 +869,10 @@ packages:
     resolution: {integrity: sha512-E2lDcBmxc8bAdvZo+Rnhjzg8ojO5E3yzJAOu7NrxH65RC5z0iqEcszSgewUQ3LHiB9Mu5v/6g8TP6shxr0BbGQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/handler@1.1.2':
+    resolution: {integrity: sha512-8XWSI7ulNOn1hHncB/aEy/IMxTnuq4FGkBBqTElYZRpzFq5aeGjDqJyCep2hgNpJgrIAVWccM24V1jUUuy9KtA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/host-http-contract@1.1.0':
     resolution: {integrity: sha512-5JZrIsLKZq7IHcFp39w3AduTMWhpajBz7H21vwWtPqVGCBoCzf0zinupJ1MzxZC4/Jy/pA1kblgMKTyafqEREg==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -623,8 +881,16 @@ packages:
     resolution: {integrity: sha512-nnz0n+Yw26k/uALcMOtt5GNk3o6isl6gcFJRk+o6fTT/wDvvuLlibOJRr+qui+vhAI7LQFeOmt5JpeT8ADJtwA==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/host-http@1.1.2':
+    resolution: {integrity: sha512-AdoW4OS73TGC6/l0RLr3X78l+mVzVDiBW3M3huh4V6qdHkVbiuYCpLEpSqUz6Hny6olxjnsOBKQ7DGdtRLvdMg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/im-contract@1.1.0':
     resolution: {integrity: sha512-YlZckEcnp1BQkc3DU3GwQqXoGjUew4Jm+lYSdSKqdJNHW+COp+q2mLQYkQfQkXEE/q5nrt5gKOorEmBdlHzhUA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/im-contract@1.1.2':
+    resolution: {integrity: sha512-7McByp05dCacthKD529pkqhhsoB3uEcwmPZsExy78tOX1YhZSzBNv/SxgaJ9O3RotbgB5rE2exKGv5hEZYNfCQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/interaction@1.1.0':
@@ -635,27 +901,38 @@ packages:
     resolution: {integrity: sha512-Bpefb3IShQsTjyx7qaXtaZbPN8RR856I8q0n7EennfvD0EaL9JuZ3L3DdWsFyXwRPVLfUGsr9mPHJ5twOj9fQw==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/layout@1.1.0':
-    resolution: {integrity: sha512-RSziqg3xm0rYw7yi2nEy6tKdzjT2TB6sxYaLvuoO2GLC9HXSnW/ywEnB6v8woLIo37GmmfiOKcl+vWqb+aRDGQ==}
+  '@zhin.js/kernel@1.1.1':
+    resolution: {integrity: sha512-QeOV67kpH6Mb6ByLUwBqAm7/DG9jwGWbqyevz6GJ1ymFEbbgVPEicxuYWsAkcJBeKlE6hAib3JwNML9tGqzAPQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/layout@1.1.3':
+    resolution: {integrity: sha512-CBwEfszxRTLkVlYFF8piTR4UDSdXt9JdyKNLlyEz8xoPbTz1mZBi3yz4kKj/DcLwb12qo/6EXCl5q9f7VvFVFQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/logger@1.1.0':
     resolution: {integrity: sha512-WFPaV/SWSYLbT9PEbiQN79KiccN2OR9L09VxNoFDFD2iYwKoWuyp7NOE8q9Aml6b/wfADsy3DfcRhuBA3ogrYA==}
 
-  '@zhin.js/mcp-feature@1.1.0':
-    resolution: {integrity: sha512-ubO0FODThvYTM1R2Gsp3IsX5eCqt5UBLq8Ef+U1PfUlOhFHoHTMMPM5kmqXm+bKOyiv3B10lT/X6BRE4fuo9eA==}
+  '@zhin.js/logger@1.1.1':
+    resolution: {integrity: sha512-P7K1gfkcz9cTv1Ry7nAuupl6/QvfFTuuHiVzN5185wMW+2a9isHjVBvN91wcMUInDW5JLWuJuTgiwzPHScsrqg==}
+
+  '@zhin.js/mcp-feature@1.1.2':
+    resolution: {integrity: sha512-xFgEte1m59Xn3iTCTcbBmzkRJCBfKoa4DUNeviF2hCnvm2MkuzFLlT//3yrAhkj+LAw90w1w1Nm7XSvVR2uYDw==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/middleware@1.1.0':
     resolution: {integrity: sha512-QhUSVRIz7uGaZuFYfprrK04mB/PUu/LPAd9n+XfYjSemBzPiAkK/dH2F9DcPqJAdKNTzdKswSxjDWoaHyDyg9Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/page@1.1.0':
-    resolution: {integrity: sha512-zjBxJhoXIE06z5i0hdXGgrxhlbvjoSHI7XWPryTQx3cj5VaEgB1Z3+8uO+kKCXjA16vVsC2SKI7svDRWYmqy+g==}
+  '@zhin.js/middleware@1.1.2':
+    resolution: {integrity: sha512-Y+ThiCrpr+/R09QUAy52R7/7gOyIKLxyVqhPaIHMZtgsozx1HE0uQnR+KTB8NwlRv4sOYsIruKMdAzPUu4HEkQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/pagemanager@1.1.0':
-    resolution: {integrity: sha512-ZM0A9qbrQXkl9FoqRPZPLcAQCj+0oiPCVUBINqZpktkvYdQLE4fTHQ5VEy820E0cQPfKGzN1aS/CZ0K2+g31Dg==}
+  '@zhin.js/page@1.1.3':
+    resolution: {integrity: sha512-HjMTUnWqQ2VEXaOjvpk9K9YgBoU6HaK9fhag6MPkNP9ywPg12G2+ZNdldibS5osDiaLlfcnN4ruJ5TgKRpS8dQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/pagemanager@1.1.3':
+    resolution: {integrity: sha512-Uldvo7GFVj4Jzbf+qK8kEUwf3cfsqkDQu88UBmI4uo/Dhgdxg7w+M05ts8QPCvNPsmlhhP8AFUOfbu8ceWnecA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       typescript: '>=5.8.0 <7.0.0'
@@ -665,6 +942,10 @@ packages:
 
   '@zhin.js/permission@1.1.0':
     resolution: {integrity: sha512-p9Ub/4K4E7LjgKBgVIzFdGkIg9uIr6uBBQkuvcU7GkbKYnziJPyHAkluNZSmpSAJV10MOPF6h4704CV+lqk9NQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/permission@1.1.3':
+    resolution: {integrity: sha512-lCbbhlnDkCzWPMc5odDV+dzvDEbnJDmGMlyEtmf6DK3Wa7F7Yw7u9oscvl5llpSwSJTiPl3EDldbmBozZZmawQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/plugin-60s@1.1.0':
@@ -702,6 +983,10 @@ packages:
       '@zhin.js/middleware':
         optional: true
 
+  '@zhin.js/plugin-runtime@1.1.11':
+    resolution: {integrity: sha512-d4zT/9L/JEdRjqqHn4Gn96HLvkRskRyxuTjxQosyfautWOn4PqQzKxHK/hugpMdOuPqrk4+rHlbgA5AggOP7iQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/plugin-runtime@1.1.9':
     resolution: {integrity: sha512-2mzY+dkz+HC6niWFKqW7Meh71996we/12PV803+UtUWxShztHxgl7hZVTgNUhmw6iPOgsh+TVmwMB/kxCKxcIw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -719,12 +1004,12 @@ packages:
       '@zhin.js/middleware':
         optional: true
 
-  '@zhin.js/prompt-section@1.1.0':
-    resolution: {integrity: sha512-iLuKNpR2FM3DI+IL9nhko6zWjxLC3DfJXVV/WYtNJ90+ZYTg357xXwGhvcGwVLqBudpqDjMjOH+FPXY9JiIjvQ==}
+  '@zhin.js/prompt-section@1.1.2':
+    resolution: {integrity: sha512-AlblCZ16nmegnWKGXC8FT+1v8dlXeWJdroDjelTPF515UiR/2agu47fa/gtNCBJCximD//pvHGhunhG3R2Ysow==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@zhin.js/runtime@1.1.0':
-    resolution: {integrity: sha512-2E1Gg18cLyWt/EM2SZUFQBHaYDwPsaUWqDgdYSHgqWIklkON9ZjNUEtpSYZaCsE885jAT6I8aBV36Eihg9kwMg==}
+  '@zhin.js/runtime@1.1.3':
+    resolution: {integrity: sha512-nlOdB+FoS0M3PVvxNP/OJQBf7WMjzOSr2Qik13mt9WC6C3UJXEIgvrU6s3g3g6eq0yHEsqEQF2dCvz1CfHFKMw==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/satori@1.1.0':
@@ -733,32 +1018,43 @@ packages:
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
 
-  '@zhin.js/scaffold-wizard@1.1.0':
-    resolution: {integrity: sha512-y12AhYC8Jswbav6H354rGeAGOFVryzIJM2pyveQdeHwEsmUUpftAnT/7jSbGO0fsrctOIBNgFUTFu4OwFoIQrQ==}
+  '@zhin.js/scaffold-wizard@1.1.2':
+    resolution: {integrity: sha512-ky/Rv3Nf4tF/P+sdD19busVbhKOd/cbiP2vLLcYTzwAK3zblwmRtpM3wg1cIcgyeLAKAp9S+K71Te99apd6Snw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@zhin.js/schedule-feature@1.1.2':
+    resolution: {integrity: sha512-ZpFCxueEqca1zaJCgWF/UqYAqXWPHCoWzll30gOTIx0mNsdDvWz2vd+neR278j0WB0Z9UyLVma591lkQArf5Gg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/schedule@1.1.0':
     resolution: {integrity: sha512-ma9xySuCbyytsFsK4ejqF0dI4JnXtS9rMu0fE+NIFCUGd73VVXyAZGS5k2qqT9w3zblHrgPHQO+EzsW4PXiDLg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/schedule@1.1.1':
+    resolution: {integrity: sha512-7mh4Ujdgy8mImNUFFSbGFyX2/mO32UYalNISCviwI1uyga9lAi7ghcgfPjY8J9YKO3X+btq7pDujyw8NM1kQXA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   '@zhin.js/schema@1.1.0':
     resolution: {integrity: sha512-DOTAqO3V2jbTuZKGwkiAC4MAQIc2t6A6W/hsxl14qB7UNJEIEXNqZDkSttlUt9t8wpPgzTeg/H10PqTgPpvv6Q==}
 
-  '@zhin.js/skill@1.1.0':
-    resolution: {integrity: sha512-R/3Ga0hBgij+eBbLpaB2KwsfDL0hiQl72LLTwzEc+39ueaqsORVj8ScLb6f2gZ80WmWv5K785yYS0kVdR1tUBQ==}
+  '@zhin.js/schema@1.1.1':
+    resolution: {integrity: sha512-h2XRVSIQ7o5Hq1Qhe33qZWKBiRqT21NNEEyq69UA7Cpx7iFCWLOVa/OmJlP8hFDJrffvh44HNi/NcVgOQlsBQw==}
+
+  '@zhin.js/skill@1.1.2':
+    resolution: {integrity: sha512-MTZQtuQwC9dEW7SAH54qelvj5xQHs/kNa+70/6fcbA4ewTnZbi55OIzqv7vrTe3f+ByJPKvxSx1sVJFyU1ZAhA==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@zhin.js/tool@1.1.0':
     resolution: {integrity: sha512-gyEnfYHUSXYdU9l/NbcHlvEvOsQ/oe9ysZVrNd4PMDzwAtXY4lUPfo2S+Qv7BQMt92LLLjDKNLLXa0Wyx2lDIg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
+  '@zhin.js/tool@1.1.2':
+    resolution: {integrity: sha512-T/OXQXv7FTBc7fxRIJebE6hUMG85aBWbCOr3qcXxq2puhuqR22oD1FZeIXttHHoZxOkYVuWU8IxLKQNH7wSrLQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
-
-  adm-zip@0.6.1:
-    resolution: {integrity: sha512-Xwrja8nx9e5o2N1my4DsKCeKpdrnACyr1wtbPxBDgGzKzKyE9kRtBFA8mWldI+RVlD7CBZNWY/wQ2+ydwOR6kQ==}
-    engines: {node: '>=14.0'}
 
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -970,6 +1266,9 @@ packages:
   css-to-react-native@3.2.0:
     resolution: {integrity: sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==}
 
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
   culvert@0.1.2:
     resolution: {integrity: sha512-yi1x3EAWKjQTreYWeSd98431AV+IEE0qoDyOoaHJ7KJ21gv6HtBXHVLX74opVSGqcR8/AbjJBHAHpcOy2bj5Gg==}
 
@@ -1078,6 +1377,10 @@ packages:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
+  douyin.ts@0.6.1:
+    resolution: {integrity: sha512-RfypDl3uAwV/Q2YXCYv0w1DrnVEuZ+3lbaoo6RFN3e65lBcAXPUQokeEUEo8C6tIstpLWus5XvbGYIsTd6NEKA==}
+    engines: {node: '>=20'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -1099,6 +1402,10 @@ packages:
     resolution: {integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==}
     engines: {node: '>=8.6'}
 
+  entities@7.0.1:
+    resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
+    engines: {node: '>=0.12'}
+
   entities@8.1.0:
     resolution: {integrity: sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==}
     engines: {node: '>=20.19.0'}
@@ -1110,6 +1417,9 @@ packages:
   es-errors@1.3.0:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
     engines: {node: '>= 0.4'}
+
+  es-module-lexer@2.3.1:
+    resolution: {integrity: sha512-shc1dbU90Yl/xq1QrC7QRtfcwURZuVRfPhZbDoldJ1cn1gzDvBaBWlv0eFolj5+0znnPJz5TXLxsN77X/12KTA==}
 
   es-object-atoms@1.1.2:
     resolution: {integrity: sha512-HWcBoN6NileqtSydK2FqHbS/LoDd2pqrnQHLyJzBj4kOp/ky2MWMN694xOfkK8/SnUsW2DH7EfyVlydKCsm1Zw==}
@@ -1144,6 +1454,9 @@ packages:
   estraverse@5.3.0:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
+
+  estree-walker@2.0.2:
+    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
@@ -1356,6 +1669,9 @@ packages:
     resolution: {integrity: sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==}
     engines: {node: '>=0.10.0'}
 
+  import-meta-resolve@4.2.0:
+    resolution: {integrity: sha512-Iqv2fzaTQN28s/FwZAoFq0ZSs/7hMAHJVX+w8PZl3cY19Pxk6jFFalxQoIfW2826i/fDLXv8IiEZRIT0lDuWcg==}
+
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
 
@@ -1517,6 +1833,9 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  magic-string@0.30.21:
+    resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -1570,6 +1889,11 @@ packages:
   mute-stream@3.0.0:
     resolution: {integrity: sha512-dkEJPVvun4FryqBmZ5KhDo0K9iDXAwn08tMLDinNdRBNPcYEDiWYysLcc6k3mjTMlbP9KyylvRpd4wFtwrT9rw==}
     engines: {node: ^20.17.0 || >=22.9.0}
+
+  nanoid@3.3.19:
+    resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
 
   needle@2.4.0:
     resolution: {integrity: sha512-4Hnwzr3mi5L97hMYeNl8wRW/Onhy4nUKR/lVemJ8gJedxxUyBLm9kkrDColJvoSfwi0jCNhD+xCdOtiGDQiRZg==}
@@ -1656,6 +1980,9 @@ packages:
   path-to-regexp@8.4.2:
     resolution: {integrity: sha512-qRcuIdP69NPm4qbACK+aDogI5CBDMi1jKe0ry5rSQJz8JVLsC7jV8XpiJjGRLLol3N+R5ihGYcrPLTno6pAdBA==}
 
+  picocolors@1.1.1:
+    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
   picomatch@2.3.2:
     resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
@@ -1697,6 +2024,10 @@ packages:
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
+
+  postcss@8.5.28:
+    resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
+    engines: {node: ^10 || ^12 || >=14}
 
   powershell-utils@0.1.0:
     resolution: {integrity: sha512-dM0jVuXJPsDN6DvRpea484tCUaMiXWjuCn++HGTqUWzGDjv5tZkEZldAJ/UMlqRYGFrD/etByo4/xOuC/snX2A==}
@@ -1865,6 +2196,10 @@ packages:
     resolution: {integrity: sha512-e0VyvkVTwVYViNovRkZ9aodhxVlyoMn7eJhVUPxZ+eK9P/7CBkxvvsBOHqFPEH416726W8tLXXXjKwqgTErrCQ==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
+  source-map-js@1.2.1:
+    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+    engines: {node: '>=0.10.0'}
+
   source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
 
@@ -1954,6 +2289,11 @@ packages:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
     engines: {node: '>=0.6.x'}
 
+  tsx@4.23.15:
+    resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   tv4@1.3.0:
     resolution: {integrity: sha512-afizzfpJgvPr+eDkREK4MxJ/+r8nEEHcmitwgnPUqpaP+FpwQyadnxNoSACbgc/b1LsZYtODGoPiFxQrgJgjvw==}
     engines: {node: '>= 0.8.0'}
@@ -1973,12 +2313,12 @@ packages:
   undici-types@7.24.6:
     resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
 
-  undici@7.29.1:
-    resolution: {integrity: sha512-RYONW2MeafgYlkVOKYKkA/Ag7BmXqgIWCa8t1m0JcxrQg9pI9lEqRhAOruOBCbAohOa/gkCF+iPi9hrgvTzu6Q==}
+  undici@7.30.0:
+    resolution: {integrity: sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==}
     engines: {node: '>=20.18.1'}
 
-  undici@8.10.2:
-    resolution: {integrity: sha512-/y4/bH9YNU5hi9NIrpOuvGXFcxrj3CMrV+/AYpowAYTpHn8gX/XPFjNy766FPoYY0miQhdW977JFWKGNhBdwyQ==}
+  undici@8.11.2:
+    resolution: {integrity: sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==}
     engines: {node: '>=22.19.0'}
 
   unicode-trie@2.0.0:
@@ -1999,6 +2339,14 @@ packages:
   vizion@2.2.1:
     resolution: {integrity: sha512-sfAcO2yeSU0CSPFI/DmZp3FsFE9T+8913nv1xWBOyzODv13fwkn6Vl7HqxGpkr9F608M+8SuFId3s+BlZqfXww==}
     engines: {node: '>=4.0'}
+
+  vue@3.5.43:
+    resolution: {integrity: sha512-o5qZoksdnjIKvW1srZ3ab7pcDNYAerBjRe54D0LBLfRdCYFrSgBHVXokMas35czQc0//lmx4/tuY4ZNQ+Rf2Ng==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   which-module@2.0.1:
     resolution: {integrity: sha512-iBdZ57RDvnOR9AGBhML2vFZf7h8vmBjhoaZqODJBFWHVtKkDmKuHai3cx5PgVMrX5YDNp27AofYbAwctSS+vhQ==}
@@ -2071,15 +2419,14 @@ packages:
   yoga-wasm-web@0.3.3:
     resolution: {integrity: sha512-N+d4UJSJbt/R3wqY7Coqs5pcV0aUj2j9IaQ3rNj9bVCLld8tTGKRa2USARjnvZJWVx1NDmQev8EknoczaOQDOA==}
 
-  zhin.js@1.1.0:
-    resolution: {integrity: sha512-bWs+Hn4B3YCbT2bow2jc/7W8gxvN5B/1gPdE/+gRSDhdPIPAA9Jau051vaFM5Ry1b2VEFUz3xV6VrUHuEbkb5g==}
+  zhin.js@1.1.4:
+    resolution: {integrity: sha512-TpIZQbRp1nHksOWiXg4gQXk897pp/fGpTmYQFz3ructb2mti0e+YD02vzpzudbeygZF/bWVU1/OlkgQbr1zWzA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
-      '@zhin.js/agent': ^1.1.23
-      '@zhin.js/ai': ^1.1.33
-      '@zhin.js/html-renderer': ^1.1.0
-      '@zhin.js/runtime': ^1.1.0
-      '@zhin.js/speech': ^1.1.0
+      '@zhin.js/agent': ^1.1.28
+      '@zhin.js/ai': ^1.1.35
+      '@zhin.js/html-renderer': ^1.1.1
+      '@zhin.js/runtime': ^1.1.3
     peerDependenciesMeta:
       '@zhin.js/agent':
         optional: true
@@ -2088,8 +2435,6 @@ packages:
       '@zhin.js/html-renderer':
         optional: true
       '@zhin.js/runtime':
-        optional: true
-      '@zhin.js/speech':
         optional: true
 
   zod@4.6.5:
@@ -2117,12 +2462,25 @@ snapshots:
       '@standard-schema/spec': 1.1.0
       '@workflow/serde': 4.1.0
       eventsource-parser: 3.1.1
-      undici: 7.29.1
+      undici: 7.30.0
       zod: 4.6.5
 
   '@ai-sdk/provider@4.0.17':
     dependencies:
       json-schema: 0.4.0
+
+  '@babel/helper-string-parser@7.29.7': {}
+
+  '@babel/helper-validator-identifier@7.29.7': {}
+
+  '@babel/parser@7.29.9':
+    dependencies:
+      '@babel/types': 7.29.8
+
+  '@babel/types@7.29.8':
+    dependencies:
+      '@babel/helper-string-parser': 7.29.7
+      '@babel/helper-validator-identifier': 7.29.7
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
@@ -2321,6 +2679,8 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.9.7
 
+  '@jridgewell/sourcemap-codec@1.6.0': {}
+
   '@koa/router@15.7.0(koa@3.2.1)':
     dependencies:
       debug: 4.4.3
@@ -2330,6 +2690,96 @@ snapshots:
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
       - supports-color
+
+  '@napi-rs/image-android-arm64@1.15.0':
+    optional: true
+
+  '@napi-rs/image-darwin-arm64@1.15.0':
+    optional: true
+
+  '@napi-rs/image-darwin-x64@1.15.0':
+    optional: true
+
+  '@napi-rs/image-freebsd-x64@1.15.0':
+    optional: true
+
+  '@napi-rs/image-linux-arm-gnueabihf@1.15.0':
+    optional: true
+
+  '@napi-rs/image-linux-arm64-gnu@1.15.0':
+    optional: true
+
+  '@napi-rs/image-linux-arm64-musl@1.15.0':
+    optional: true
+
+  '@napi-rs/image-linux-x64-gnu@1.15.0':
+    optional: true
+
+  '@napi-rs/image-linux-x64-musl@1.15.0':
+    optional: true
+
+  '@napi-rs/image-win32-arm64-msvc@1.15.0':
+    optional: true
+
+  '@napi-rs/image-win32-ia32-msvc@1.15.0':
+    optional: true
+
+  '@napi-rs/image-win32-x64-msvc@1.15.0':
+    optional: true
+
+  '@napi-rs/image@1.15.0':
+    optionalDependencies:
+      '@napi-rs/image-android-arm64': 1.15.0
+      '@napi-rs/image-darwin-arm64': 1.15.0
+      '@napi-rs/image-darwin-x64': 1.15.0
+      '@napi-rs/image-freebsd-x64': 1.15.0
+      '@napi-rs/image-linux-arm-gnueabihf': 1.15.0
+      '@napi-rs/image-linux-arm64-gnu': 1.15.0
+      '@napi-rs/image-linux-arm64-musl': 1.15.0
+      '@napi-rs/image-linux-x64-gnu': 1.15.0
+      '@napi-rs/image-linux-x64-musl': 1.15.0
+      '@napi-rs/image-win32-arm64-msvc': 1.15.0
+      '@napi-rs/image-win32-ia32-msvc': 1.15.0
+      '@napi-rs/image-win32-x64-msvc': 1.15.0
+
+  '@napi-rs/webcodecs-darwin-arm64@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-darwin-x64@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-linux-arm-gnueabihf@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-linux-arm64-gnu@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-linux-arm64-musl@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-linux-x64-gnu@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-linux-x64-musl@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-win32-arm64-msvc@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs-win32-x64-msvc@1.4.2':
+    optional: true
+
+  '@napi-rs/webcodecs@1.4.2':
+    optionalDependencies:
+      '@napi-rs/webcodecs-darwin-arm64': 1.4.2
+      '@napi-rs/webcodecs-darwin-x64': 1.4.2
+      '@napi-rs/webcodecs-linux-arm-gnueabihf': 1.4.2
+      '@napi-rs/webcodecs-linux-arm64-gnu': 1.4.2
+      '@napi-rs/webcodecs-linux-arm64-musl': 1.4.2
+      '@napi-rs/webcodecs-linux-x64-gnu': 1.4.2
+      '@napi-rs/webcodecs-linux-x64-musl': 1.4.2
+      '@napi-rs/webcodecs-win32-arm64-msvc': 1.4.2
+      '@napi-rs/webcodecs-win32-x64-msvc': 1.4.2
 
   '@noble/curves@1.9.7':
     dependencies:
@@ -2402,18 +2852,68 @@ snapshots:
     dependencies:
       undici-types: 7.24.6
 
-  '@types/ws@8.18.1':
-    dependencies:
-      '@types/node': 25.9.7
-
   '@vercel/oidc@3.2.0': {}
+
+  '@vue/compiler-core@3.5.43':
+    dependencies:
+      '@babel/parser': 7.29.9
+      '@vue/shared': 3.5.43
+      entities: 7.0.1
+      estree-walker: 2.0.2
+      source-map-js: 1.2.1
+
+  '@vue/compiler-dom@3.5.43':
+    dependencies:
+      '@vue/compiler-core': 3.5.43
+      '@vue/shared': 3.5.43
+
+  '@vue/compiler-sfc@3.5.43':
+    dependencies:
+      '@babel/parser': 7.29.9
+      '@vue/compiler-core': 3.5.43
+      '@vue/compiler-dom': 3.5.43
+      '@vue/compiler-ssr': 3.5.43
+      '@vue/shared': 3.5.43
+      estree-walker: 2.0.2
+      magic-string: 0.30.21
+      postcss: 8.5.28
+      source-map-js: 1.2.1
+
+  '@vue/compiler-ssr@3.5.43':
+    dependencies:
+      '@vue/compiler-dom': 3.5.43
+      '@vue/shared': 3.5.43
+
+  '@vue/reactivity@3.5.43':
+    dependencies:
+      '@vue/shared': 3.5.43
+
+  '@vue/runtime-core@3.5.43':
+    dependencies:
+      '@vue/reactivity': 3.5.43
+      '@vue/shared': 3.5.43
+
+  '@vue/runtime-dom@3.5.43':
+    dependencies:
+      '@vue/reactivity': 3.5.43
+      '@vue/runtime-core': 3.5.43
+      '@vue/shared': 3.5.43
+      csstype: 3.2.3
+
+  '@vue/server-renderer@3.5.43':
+    dependencies:
+      '@vue/compiler-ssr': 3.5.43
+      '@vue/runtime-dom': 3.5.43
+      '@vue/shared': 3.5.43
+
+  '@vue/shared@3.5.43': {}
 
   '@workflow/serde@4.1.0': {}
 
-  '@zhin.js/adapter-qq@1.1.0(@zhin.js/adapter@1.1.12)(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.0)(@zhin.js/core@1.1.35(zod@4.6.5))(@zhin.js/middleware@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/adapter-qq@1.1.0(@zhin.js/adapter@1.1.15)(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.3)(@zhin.js/core@1.1.39)(@zhin.js/middleware@1.1.2)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
-      '@zhin.js/adapter': 1.1.12
-      '@zhin.js/core': 1.1.35(zod@4.6.5)
+      '@zhin.js/adapter': 1.1.15
+      '@zhin.js/core': 1.1.39
       '@zhin.js/feature-kit': 1.1.0
       '@zhin.js/host-http': 1.1.0
       '@zhin.js/im-contract': 1.1.0
@@ -2421,10 +2921,10 @@ snapshots:
       '@zhin.js/permission': 1.1.0
       qq-official-bot: 1.3.0
     optionalDependencies:
-      '@zhin.js/agent': 1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/command': 1.1.0
-      '@zhin.js/middleware': 1.1.0
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      '@zhin.js/agent': 1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/command': 1.1.3
+      '@zhin.js/middleware': 1.1.2
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
       zod: 4.6.5
     transitivePeerDependencies:
       - bufferutil
@@ -2432,19 +2932,19 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@zhin.js/adapter-sandbox@1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@zhin.js/adapter@1.1.12)(@zhin.js/console-contract@1.1.0)(@zhin.js/core@1.1.35(zod@4.6.5))(@zhin.js/host-http@1.1.0)(@zhin.js/page@1.1.0)(ai@7.0.105(zod@4.6.5))(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/adapter-sandbox@1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@zhin.js/adapter@1.1.15)(@zhin.js/console-contract@1.1.1)(@zhin.js/core@1.1.39)(@zhin.js/host-http@1.1.2)(@zhin.js/page@1.1.3)(ai@7.0.105(zod@4.6.5))(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
-      '@zhin.js/adapter': 1.1.12
+      '@zhin.js/adapter': 1.1.15
       '@zhin.js/client': 1.1.5(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(react@19.3.0)(zod@4.6.5)
-      '@zhin.js/console-contract': 1.1.0
-      '@zhin.js/core': 1.1.35(zod@4.6.5)
+      '@zhin.js/console-contract': 1.1.1
+      '@zhin.js/core': 1.1.39
       '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/host-http': 1.1.0
+      '@zhin.js/host-http': 1.1.2
       '@zhin.js/im-contract': 1.1.0
       '@zhin.js/logger': 1.1.0
-      '@zhin.js/page': 1.1.0
+      '@zhin.js/page': 1.1.3
       lucide-react: 0.525.0(react@19.3.0)
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
     optionalDependencies:
       react: 19.3.0
     transitivePeerDependencies:
@@ -2464,26 +2964,33 @@ snapshots:
       '@zhin.js/plugin-runtime': 1.1.9
       yaml: 2.9.1
 
-  '@zhin.js/agent-feature@1.1.0':
+  '@zhin.js/adapter@1.1.15':
     dependencies:
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/im-contract': 1.1.2
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/plugin-runtime': 1.1.11
 
-  '@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/agent-feature@1.1.2':
     dependencies:
-      '@zhin.js/agent-feature': 1.1.0
-      '@zhin.js/ai': 1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/core': 1.1.35(zod@4.6.5)
-      '@zhin.js/im-contract': 1.1.0
-      '@zhin.js/kernel': 1.1.0
-      '@zhin.js/logger': 1.1.0
-      '@zhin.js/mcp-feature': 1.1.0
-      '@zhin.js/permission': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
-      '@zhin.js/prompt-section': 1.1.0
-      '@zhin.js/schedule': 1.1.0
-      '@zhin.js/skill': 1.1.0
-      '@zhin.js/tool': 1.1.0
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+
+  '@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)':
+    dependencies:
+      '@zhin.js/adapter': 1.1.15
+      '@zhin.js/agent-feature': 1.1.2
+      '@zhin.js/ai': 1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/core': 1.1.39
+      '@zhin.js/im-contract': 1.1.2
+      '@zhin.js/kernel': 1.1.1
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/mcp-feature': 1.1.2
+      '@zhin.js/permission': 1.1.3
+      '@zhin.js/plugin-runtime': 1.1.11
+      '@zhin.js/prompt-section': 1.1.2
+      '@zhin.js/skill': 1.1.2
+      '@zhin.js/tool': 1.1.2
       he: 1.2.0
       js-yaml: 5.4.2
       zod: 4.6.5
@@ -2503,32 +3010,41 @@ snapshots:
     dependencies:
       '@zhin.js/logger': 1.1.0
       ai: 7.0.105(zod@4.6.5)
-      undici: 8.10.2
+      undici: 8.11.2
       zod: 4.6.5
     optionalDependencies:
       '@ai-sdk/openai': 4.0.69(zod@4.6.5)
 
-  '@zhin.js/cli@1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(@types/node@25.9.7)(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)':
+  '@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)':
     dependencies:
-      '@zhin.js/adapter': 1.1.12
-      '@zhin.js/ai': 1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/command': 1.1.0
-      '@zhin.js/component': 1.1.0
-      '@zhin.js/config-yaml': 1.1.0
-      '@zhin.js/core': 1.1.35(zod@4.6.5)
-      '@zhin.js/database': 1.1.0
-      '@zhin.js/host-http': 1.1.0
-      '@zhin.js/im-contract': 1.1.0
+      '@zhin.js/logger': 1.1.1
+      ai: 7.0.105(zod@4.6.5)
+      undici: 8.11.2
+      zod: 4.6.5
+    optionalDependencies:
+      '@ai-sdk/openai': 4.0.69(zod@4.6.5)
+
+  '@zhin.js/cli@1.1.6(@ai-sdk/openai@4.0.69(zod@4.6.5))(@types/node@25.9.7)(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)':
+    dependencies:
+      '@zhin.js/adapter': 1.1.15
+      '@zhin.js/ai': 1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/command': 1.1.3
+      '@zhin.js/component': 1.1.2
+      '@zhin.js/config-file': 1.1.2
+      '@zhin.js/console-protocol': 1.1.6
+      '@zhin.js/core': 1.1.39
+      '@zhin.js/database': 1.1.2
+      '@zhin.js/host-http': 1.1.2
+      '@zhin.js/im-contract': 1.1.2
       '@zhin.js/interaction': 1.1.0
-      '@zhin.js/logger': 1.1.0
-      '@zhin.js/middleware': 1.1.0
-      '@zhin.js/pagemanager': 1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)
-      '@zhin.js/plugin-runtime': 1.1.9
-      '@zhin.js/prompt-section': 1.1.0
-      '@zhin.js/runtime': 1.1.0
-      '@zhin.js/scaffold-wizard': 1.1.0(@types/node@25.9.7)
-      '@zhin.js/schedule': 1.1.0
-      adm-zip: 0.6.1
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/middleware': 1.1.2
+      '@zhin.js/pagemanager': 1.1.3(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)
+      '@zhin.js/plugin-runtime': 1.1.11
+      '@zhin.js/prompt-section': 1.1.2
+      '@zhin.js/runtime': 1.1.3
+      '@zhin.js/scaffold-wizard': 1.1.2(@types/node@25.9.7)
+      '@zhin.js/schedule': 1.1.1
       chalk: 5.6.2
       commander: 15.0.0
       cross-spawn: 7.0.6
@@ -2539,10 +3055,10 @@ snapshots:
       inquirer: 14.2.2(@types/node@25.9.7)
       open: 11.0.4
       ora: 9.4.1
-      smol-toml: 1.8.0
+      tsx: 4.23.15
       yaml: 2.9.1
     optionalDependencies:
-      '@zhin.js/agent': 1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/agent': 1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
       typescript: 6.0.3
     transitivePeerDependencies:
       - '@ai-sdk/anthropic'
@@ -2585,24 +3101,52 @@ snapshots:
       '@zhin.js/plugin-runtime': 1.1.9
       segment-matcher: 1.0.5
 
+  '@zhin.js/command@1.1.3':
+    dependencies:
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/interaction': 1.1.0
+      '@zhin.js/permission': 1.1.3
+      '@zhin.js/plugin-runtime': 1.1.11
+      segment-matcher: 1.0.5
+
   '@zhin.js/component@1.1.0':
     dependencies:
       '@zhin.js/feature-kit': 1.1.0
       '@zhin.js/plugin-runtime': 1.1.9
 
-  '@zhin.js/config-yaml@1.1.0':
+  '@zhin.js/component@1.1.2':
     dependencies:
-      '@zhin.js/runtime': 1.1.0
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+
+  '@zhin.js/config-file@1.1.2':
+    dependencies:
+      '@zhin.js/plugin-runtime': 1.1.11
       yaml: 2.9.0
 
-  '@zhin.js/console-contract@1.1.0': {}
+  '@zhin.js/console-contract@1.1.1': {}
 
   '@zhin.js/console-protocol@1.1.5': {}
+
+  '@zhin.js/console-protocol@1.1.6': {}
 
   '@zhin.js/contract@1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)':
     dependencies:
       '@zhin.js/ai': 1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
       '@zhin.js/console-protocol': 1.1.5
+    transitivePeerDependencies:
+      - '@ai-sdk/anthropic'
+      - '@ai-sdk/deepseek'
+      - '@ai-sdk/google'
+      - '@ai-sdk/openai'
+      - '@ai-sdk/openai-compatible'
+      - ai
+      - zod
+
+  '@zhin.js/contract@1.1.2(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)':
+    dependencies:
+      '@zhin.js/ai': 1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/console-protocol': 1.1.6
     transitivePeerDependencies:
       - '@ai-sdk/anthropic'
       - '@ai-sdk/deepseek'
@@ -2639,21 +3183,53 @@ snapshots:
       - pg
       - redis
 
+  '@zhin.js/core@1.1.39':
+    dependencies:
+      '@zhin.js/adapter': 1.1.15
+      '@zhin.js/command': 1.1.3
+      '@zhin.js/component': 1.1.2
+      '@zhin.js/database': 1.1.2
+      '@zhin.js/handler': 1.1.2
+      '@zhin.js/im-contract': 1.1.2
+      '@zhin.js/interaction': 1.1.0
+      '@zhin.js/kernel': 1.1.1
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/middleware': 1.1.2
+      '@zhin.js/permission': 1.1.3
+      '@zhin.js/plugin-runtime': 1.1.11
+      '@zhin.js/schedule-feature': 1.1.2
+      '@zhin.js/schema': 1.1.1
+      qrcode: 1.5.4
+      segment-matcher: 1.0.5
+    transitivePeerDependencies:
+      - mongodb
+      - mysql2
+      - pg
+      - redis
+
   '@zhin.js/database@1.1.0':
     dependencies:
       '@zhin.js/logger': 1.1.0
+
+  '@zhin.js/database@1.1.2':
+    dependencies:
+      '@zhin.js/logger': 1.1.1
 
   '@zhin.js/feature-kit@1.1.0':
     dependencies:
       '@zhin.js/plugin-runtime': 1.1.9
 
-  '@zhin.js/game-kit@1.1.0(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/feature-kit@1.1.2':
+    dependencies:
+      '@zhin.js/plugin-runtime': 1.1.11
+
+  '@zhin.js/game-kit@1.1.0(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
       '@zhin.js/core': 1.1.35(zod@4.6.5)
       '@zhin.js/middleware': 1.1.0
       '@zhin.js/plugin-runtime': 1.1.9
       '@zhin.js/satori': 1.1.0(react@19.3.0)
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
     transitivePeerDependencies:
       - '@types/react'
       - mongodb
@@ -2669,6 +3245,12 @@ snapshots:
       '@zhin.js/interaction': 1.1.0
       '@zhin.js/plugin-runtime': 1.1.9
 
+  '@zhin.js/handler@1.1.2':
+    dependencies:
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/interaction': 1.1.0
+      '@zhin.js/plugin-runtime': 1.1.11
+
   '@zhin.js/host-http-contract@1.1.0': {}
 
   '@zhin.js/host-http@1.1.0':
@@ -2682,7 +3264,20 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@zhin.js/host-http@1.1.2':
+    dependencies:
+      '@zhin.js/console-protocol': 1.1.6
+      '@zhin.js/host-http-contract': 1.1.0
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/plugin-runtime': 1.1.11
+      ws: 8.21.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@zhin.js/im-contract@1.1.0': {}
+
+  '@zhin.js/im-contract@1.1.2': {}
 
   '@zhin.js/interaction@1.1.0': {}
 
@@ -2694,41 +3289,56 @@ snapshots:
       smol-toml: 1.8.0
       yaml: 2.9.1
 
-  '@zhin.js/layout@1.1.0':
+  '@zhin.js/kernel@1.1.1':
     dependencies:
-      '@zhin.js/console-contract': 1.1.0
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/schedule': 1.1.1
+
+  '@zhin.js/layout@1.1.3':
+    dependencies:
+      '@zhin.js/console-contract': 1.1.1
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
 
   '@zhin.js/logger@1.1.0':
     dependencies:
       chalk: 5.6.2
       string-width: 8.2.2
 
-  '@zhin.js/mcp-feature@1.1.0':
+  '@zhin.js/logger@1.1.1':
     dependencies:
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      chalk: 5.6.2
+      string-width: 8.2.2
+
+  '@zhin.js/mcp-feature@1.1.2':
+    dependencies:
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
 
   '@zhin.js/middleware@1.1.0':
     dependencies:
       '@zhin.js/feature-kit': 1.1.0
       '@zhin.js/plugin-runtime': 1.1.9
 
-  '@zhin.js/page@1.1.0':
+  '@zhin.js/middleware@1.1.2':
     dependencies:
-      '@zhin.js/console-contract': 1.1.0
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
 
-  '@zhin.js/pagemanager@1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)':
+  '@zhin.js/page@1.1.3':
+    dependencies:
+      '@zhin.js/console-contract': 1.1.1
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+
+  '@zhin.js/pagemanager@1.1.3(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(typescript@6.0.3)(zod@4.6.5)':
     dependencies:
       '@koa/router': 15.7.0(koa@3.2.1)
-      '@zhin.js/console-contract': 1.1.0
-      '@zhin.js/contract': 1.1.0(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/layout': 1.1.0
-      '@zhin.js/page': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/console-contract': 1.1.1
+      '@zhin.js/contract': 1.1.2(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/layout': 1.1.3
+      '@zhin.js/page': 1.1.3
+      '@zhin.js/plugin-runtime': 1.1.11
       esbuild: 0.28.2
       koa: 3.2.1
       koa-compose: 4.1.0
@@ -2749,24 +3359,28 @@ snapshots:
     dependencies:
       '@zhin.js/plugin-runtime': 1.1.9
 
-  '@zhin.js/plugin-60s@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/permission@1.1.3':
+    dependencies:
+      '@zhin.js/plugin-runtime': 1.1.11
+
+  '@zhin.js/plugin-60s@1.1.0(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/command@1.1.3)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
       '@zhin.js/tool': 1.1.0
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
     optionalDependencies:
-      '@zhin.js/agent': 1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/command': 1.1.0
+      '@zhin.js/agent': 1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/command': 1.1.3
       zod: 4.6.5
 
-  '@zhin.js/plugin-music@1.1.0(@zhin.js/command@1.1.0)(@zhin.js/component@1.1.0)(@zhin.js/middleware@1.1.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/plugin-music@1.1.0(@zhin.js/command@1.1.3)(@zhin.js/component@1.1.2)(@zhin.js/middleware@1.1.2)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
       '@zhin.js/core': 1.1.35(zod@4.6.5)
       '@zhin.js/tool': 1.1.0
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
     optionalDependencies:
-      '@zhin.js/command': 1.1.0
-      '@zhin.js/component': 1.1.0
-      '@zhin.js/middleware': 1.1.0
+      '@zhin.js/command': 1.1.3
+      '@zhin.js/component': 1.1.2
+      '@zhin.js/middleware': 1.1.2
     transitivePeerDependencies:
       - mongodb
       - mysql2
@@ -2774,16 +3388,18 @@ snapshots:
       - redis
       - zod
 
+  '@zhin.js/plugin-runtime@1.1.11': {}
+
   '@zhin.js/plugin-runtime@1.1.9': {}
 
-  '@zhin.js/plugin-tic-tac-toe@1.1.0(@zhin.js/command@1.1.0)(@zhin.js/middleware@1.1.0)(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)':
+  '@zhin.js/plugin-tic-tac-toe@1.1.0(@zhin.js/command@1.1.3)(@zhin.js/middleware@1.1.2)(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)':
     dependencies:
       '@zhin.js/core': 1.1.35(zod@4.6.5)
-      '@zhin.js/game-kit': 1.1.0(react@19.3.0)(zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5))(zod@4.6.5)
-      zhin.js: 1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5)
+      '@zhin.js/game-kit': 1.1.0(react@19.3.0)(zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3))(zod@4.6.5)
+      zhin.js: 1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3)
     optionalDependencies:
-      '@zhin.js/command': 1.1.0
-      '@zhin.js/middleware': 1.1.0
+      '@zhin.js/command': 1.1.3
+      '@zhin.js/middleware': 1.1.2
     transitivePeerDependencies:
       - '@types/react'
       - '@zhin.js/html-renderer'
@@ -2794,16 +3410,18 @@ snapshots:
       - redis
       - zod
 
-  '@zhin.js/prompt-section@1.1.0':
+  '@zhin.js/prompt-section@1.1.2':
     dependencies:
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
 
-  '@zhin.js/runtime@1.1.0':
+  '@zhin.js/runtime@1.1.3':
     dependencies:
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
       ajv: 8.18.0
+      es-module-lexer: 2.3.1
+      import-meta-resolve: 4.2.0
       semver: 7.8.5
 
   '@zhin.js/satori@1.1.0(react@19.3.0)':
@@ -2814,37 +3432,50 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@zhin.js/scaffold-wizard@1.1.0(@types/node@25.9.7)':
+  '@zhin.js/scaffold-wizard@1.1.2(@types/node@25.9.7)':
     dependencies:
+      '@zhin.js/plugin-runtime': 1.1.11
       chalk: 5.6.2
       fs-extra: 11.4.0
       inquirer: 14.2.2(@types/node@25.9.7)
       qrcode: 1.5.4
-      smol-toml: 1.8.0
       yaml: 2.9.1
     transitivePeerDependencies:
       - '@types/node'
 
+  '@zhin.js/schedule-feature@1.1.2':
+    dependencies:
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+
   '@zhin.js/schedule@1.1.0': {}
+
+  '@zhin.js/schedule@1.1.1': {}
 
   '@zhin.js/schema@1.1.0': {}
 
-  '@zhin.js/skill@1.1.0':
+  '@zhin.js/schema@1.1.1': {}
+
+  '@zhin.js/skill@1.1.2':
     dependencies:
-      '@zhin.js/feature-kit': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+      js-yaml: 5.4.2
 
   '@zhin.js/tool@1.1.0':
     dependencies:
       '@zhin.js/feature-kit': 1.1.0
       '@zhin.js/plugin-runtime': 1.1.9
 
+  '@zhin.js/tool@1.1.2':
+    dependencies:
+      '@zhin.js/feature-kit': 1.1.2
+      '@zhin.js/plugin-runtime': 1.1.11
+
   accepts@1.3.8:
     dependencies:
       mime-types: 2.1.35
       negotiator: 0.6.3
-
-  adm-zip@0.6.1: {}
 
   agent-base@6.0.2:
     dependencies:
@@ -3038,6 +3669,8 @@ snapshots:
       css-color-keywords: 1.0.0
       postcss-value-parser: 4.2.0
 
+  csstype@3.2.3: {}
+
   culvert@0.1.2: {}
 
   data-uri-to-buffer@6.0.2: {}
@@ -3111,6 +3744,19 @@ snapshots:
 
   dotenv@17.4.2: {}
 
+  douyin.ts@0.6.1(typescript@6.0.3):
+    dependencies:
+      '@napi-rs/image': 1.15.0
+      '@napi-rs/webcodecs': 1.4.2
+      protobufjs: 8.8.0
+      vue: 3.5.43(typescript@6.0.3)
+      ws: 8.21.3
+    transitivePeerDependencies:
+      - '@napi-rs/canvas'
+      - bufferutil
+      - typescript
+      - utf-8-validate
+
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3129,11 +3775,15 @@ snapshots:
     dependencies:
       ansi-colors: 4.1.3
 
+  entities@7.0.1: {}
+
   entities@8.1.0: {}
 
   es-define-property@1.0.1: {}
 
   es-errors@1.3.0: {}
+
+  es-module-lexer@2.3.1: {}
 
   es-object-atoms@1.1.2:
     dependencies:
@@ -3190,6 +3840,8 @@ snapshots:
   esprima@4.0.1: {}
 
   estraverse@5.3.0: {}
+
+  estree-walker@2.0.2: {}
 
   esutils@2.0.3: {}
 
@@ -3412,6 +4064,8 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
+  import-meta-resolve@4.2.0: {}
+
   inherits@2.0.3: {}
 
   inherits@2.0.4: {}
@@ -3583,6 +4237,10 @@ snapshots:
     dependencies:
       react: 19.3.0
 
+  magic-string@0.30.21:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.6.0
+
   math-intrinsics@1.1.0: {}
 
   media-typer@1.1.1: {}
@@ -3616,6 +4274,8 @@ snapshots:
   mute-stream@0.0.8: {}
 
   mute-stream@3.0.0: {}
+
+  nanoid@3.3.19: {}
 
   needle@2.4.0:
     dependencies:
@@ -3711,6 +4371,8 @@ snapshots:
 
   path-to-regexp@8.4.2: {}
 
+  picocolors@1.1.1: {}
+
   picomatch@2.3.2: {}
 
   pidusage@2.0.21:
@@ -3798,6 +4460,12 @@ snapshots:
   pngjs@5.0.0: {}
 
   postcss-value-parser@4.2.0: {}
+
+  postcss@8.5.28:
+    dependencies:
+      nanoid: 3.3.19
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
 
   powershell-utils@0.1.0: {}
 
@@ -3963,6 +4631,8 @@ snapshots:
       ip-address: 10.7.2
       smart-buffer: 4.2.0
 
+  source-map-js@1.2.1: {}
+
   source-map-support@0.5.21:
     dependencies:
       buffer-from: 1.1.2
@@ -4040,6 +4710,12 @@ snapshots:
 
   tsscmp@1.0.6: {}
 
+  tsx@4.23.15:
+    dependencies:
+      esbuild: 0.28.2
+    optionalDependencies:
+      fsevents: 2.3.3
+
   tv4@1.3.0: {}
 
   tx2@1.0.5:
@@ -4057,9 +4733,9 @@ snapshots:
 
   undici-types@7.24.6: {}
 
-  undici@7.29.1: {}
+  undici@7.30.0: {}
 
-  undici@8.10.2: {}
+  undici@8.11.2: {}
 
   unicode-trie@2.0.0:
     dependencies:
@@ -4078,6 +4754,16 @@ snapshots:
       git-node-fs: 1.0.0(js-git@0.7.8)
       ini: 1.3.8
       js-git: 0.7.8
+
+  vue@3.5.43(typescript@6.0.3):
+    dependencies:
+      '@vue/compiler-dom': 3.5.43
+      '@vue/compiler-sfc': 3.5.43
+      '@vue/runtime-dom': 3.5.43
+      '@vue/server-renderer': 3.5.43
+      '@vue/shared': 3.5.43
+    optionalDependencies:
+      typescript: 6.0.3
 
   which-module@2.0.1: {}
 
@@ -4131,22 +4817,21 @@ snapshots:
 
   yoga-wasm-web@0.3.3: {}
 
-  zhin.js@1.1.0(@zhin.js/agent@1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.0)(zod@4.6.5):
+  zhin.js@1.1.4(@zhin.js/agent@1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/ai@1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5))(@zhin.js/runtime@1.1.3):
     dependencies:
-      '@zhin.js/core': 1.1.35(zod@4.6.5)
-      '@zhin.js/logger': 1.1.0
-      '@zhin.js/permission': 1.1.0
-      '@zhin.js/plugin-runtime': 1.1.9
+      '@zhin.js/core': 1.1.39
+      '@zhin.js/logger': 1.1.1
+      '@zhin.js/permission': 1.1.3
+      '@zhin.js/plugin-runtime': 1.1.11
       chalk: 5.6.2
     optionalDependencies:
-      '@zhin.js/agent': 1.1.23(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/ai': 1.1.33(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
-      '@zhin.js/runtime': 1.1.0
+      '@zhin.js/agent': 1.1.28(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/ai': 1.1.35(@ai-sdk/openai@4.0.69(zod@4.6.5))(ai@7.0.105(zod@4.6.5))(zod@4.6.5)
+      '@zhin.js/runtime': 1.1.3
     transitivePeerDependencies:
       - mongodb
       - mysql2
       - pg
       - redis
-      - zod
 
   zod@4.6.5: {}

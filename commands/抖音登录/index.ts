@@ -1,6 +1,6 @@
 import { createDurableEndpointCommandReply } from 'zhin.js/adapter'
 import { defineCommand } from 'zhin.js/command'
-import { stateToken, endpointRegistry, mfaState } from '../src/state.js'
+import { stateToken, endpointRegistry, mfaState } from '../../src/state.js'
 
 /**
  * 抖音登录：扫码登录抖音账号。

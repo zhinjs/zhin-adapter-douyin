@@ -1,5 +1,5 @@
 import { defineCommand } from 'zhin.js/command'
-import { mfaState } from '../src/state.js'
+import { mfaState } from '../../src/state.js'
 
 /**
  * 抖音验证：提交扫码登录二步验证的短信验证码/账号密码。
