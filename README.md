@@ -1,17 +1,18 @@
+<div align="center">
+
 # zhin-adapter-douyin
 
-抖音桌面 IM 适配器 —— 一个可发布为 **npm 依赖**的 Zhin.js 插件包。安装到任意 Zhin 应用后，为宿主提供 `douyin` 平台端点、`#抖音登录` / `#抖音验证` 命令与真实账号消息收发。
+抖音桌面 IM 适配器
 
-## ✨ 特性
+基于 [douyin.ts](https://www.npmjs.com/package/douyin.ts) SDK，支持抖音私聊 / 群聊消息收发与事件处理
 
-- 扫码登录（二维码通过聊天窗口直接发送），支持二次验证（短信验证码 / 账号密码）
-- 启动时优先恢复本地会话（cookie 落盘），无需每次重连重新扫码
-- 真实昵称/头像：登录/恢复后通过 SDK `user.self()` 同步覆盖
-- 多账号：一个插件实例挂多个 endpoint（`endpoints[]`）
-- 媒体收发：图片（base64/url/path）、文件、引用消息回复；音频段自动降级
-- 基于 [douyin.ts](https://www.npmjs.com/package/douyin.ts) SDK：连接、心跳、收发、事件桥全部走 SDK，零自研协议栈
+</div>
 
-## � 安装（在宿主 Zhin 应用）
+## 🐬 安装教程
+
+需要先准备基于 [Zhin.js](https://zhin.js.org) 的宿主应用
+
+#### 🔧 宿主应用根目录执行命令安装
 
 ```bash
 pnpm add zhin-adapter-douyin
@@ -36,17 +37,22 @@ npx zhin uninstall plugin zhin-adapter-douyin --remove-pkg   # 卸载 + 移除�
 }
 ```
 
-`instanceKey` 是实例键（须以字母开头），用于区分多实例。本包为根插件（`type: plugin`），配置写在宿主 `zhin.config.yml` 顶层 `plugin:` 段：
+## 使用教程
 
-## ⚙️ 配置（宿主 zhin.config.yml）
+- `#抖音登录` 扫码登录新账号（多账号时 `#抖音登录 <id>` 选中账号；触发短信/密码二次验证时，直接回复验证码或密码即可）
+- `#抖音验证 <验证码>` 提交扫码登录的二步验证（需先发送 `#抖音登录` 触发）
+
+启动时若本地已有会话会自动恢复，无会话时发送 `#抖音登录` 手动弹码。
+
+## 配置说明
+
+宿主 `zhin.config.yml` 顶层 `plugin:` 段（本包为根插件，`instanceKey` 即实例键）：
 
 ```yaml
 plugin:
   endpoints:
     - id: douyin                # 账号实例标识（必填，#抖音登录 选中、日志前缀用）
 ```
-
-账号实例字段（均可在单个 endpoint 内覆盖顶层）：
 
 | 字段 | 说明 |
 | --- | --- |
@@ -55,46 +61,44 @@ plugin:
 | `cookies` | 手动注入 cookie；未提供且本地无会话时走扫码登录 |
 | `userAgent` | 本 endpoint 的 UA 覆盖 |
 
-## 🤖 使用
+会话数据落盘在宿主应用的 `accountsDir`（默认 `<cwd>/data/douyin/accounts`）：`accounts.json` 按 uid 存储 cookie / 昵称 / 头像，登录自动写入、启动自动恢复。
 
-- 首次登录：向机器人发送 **`#抖音登录`** 触发扫码 👉 抖音 APP 扫码并确认（多账号时 `#抖音登录 <id>`）
-- 二次验证：按提示发送 **`#抖音验证 <验证码>`**（密码验证则回复账号密码）
-- 启动时若本地已有会话会自动恢复，无会话时发送 `#抖音登录` 手动弹码
+## 账号安全与风控
 
-## 💾 数据与状态
+### 登录双重验证（建议关闭）
 
-会话数据落盘在宿主应用的 `accountsDir`（默认 `<cwd>/data/douyin/accounts`）：
+抖音 App「设置 → 账号与安全 → 登录双重验证」开启后，新设备登录或异常登录会要求二次验证。机器人通过 Cookie 模拟登录，开启双重验证时容易触发风控拦截、登录后强制二次验证，导致掉线或消息收发异常。
 
-- `accounts.json` — 多账号 cookie / 昵称 / 头像（按 uid 存储，登录自动写入）
+**建议关闭双重验证**，保持 Cookie 登录稳定。
 
-## 🔧 本地开发
+![抖音账号与安全-双重验证](docs/account-security.jpg)
 
-仓库本身可独立运行调试（作为根插件）：`pnpm dev` / `pnpm build`（tsc --noEmit）。
+### 抖音风控限制
 
-```
-zhin-adapter-douyin/
-├── plugin.ts                  # 根插件入口（definePlugin，name: douyin）
-├── adapters/
-│   └── douyin/index.ts        # defineAdapter：组装 Accounts + DouyinEndpoint 注册为 douyin 平台
-├── schema.json                # 插件配置契约（JSON Schema）
-├── commands/
-│   ├── 抖音登录/index.ts      # #抖音登录：手动发起扫码登录
-│   └── 抖音验证/index.ts      # #抖音验证 <验证码/密码>：提交二步验证
-└── src/
-    ├── endpoint.ts            # DouyinEndpoint：基于 douyin.ts SDK 的端点（登录/连接/收发/事件桥）
-    ├── accounts.ts            # 账号会话落盘（accounts.json，按 uid 存 cookie）
-    ├── protocol.ts            # 配置模型（Cfg/EpCfg）与地址/会话映射
-    ├── state.ts               # 运行时状态 Token 与 endpoint 实例注册表
-    └── index.ts               # 包内导出出口
-```
+可能出现消息仅回显到自身、对方看不到。
 
-> 发布为 npm 包时，`package.json` 需补充 `files` 白名单（`plugin.js`、`schema.json`、`commands/`、`lib/`、`README.md` 等）与 `main`/`types` 入口。
+## 消息支持
 
-## 📚 参考
+- 收：文本、@提及、图片、文件、引用回复、表情回应
+- 发：文本、@、图片（base64/url/path）、文件、引用回复、表情回应
+- 音频段自动降级为文本提示
 
-- [Zhin.js 官方文档](https://zhin.js.org)
-- [GitHub](https://github.com/zhinjs/zhin)
+## 事件支持
 
-## 许可证
+- message：私聊 / 群聊消息
+- recall：消息撤回
+- reaction：表情回应
 
-MIT License
+## 其他框架集成
+
+本插件面向 Zhin.js 运行时。若你希望在其他框架中使用抖音相关能力，可参考以下项目：
+
+- [karin-plugin-adapter-douyin](https://github.com/dmmdekkd/karin-plugin-adapter-douyin)（Karin 框架）
+- [DouYin-Plugin](https://github.com/dmmdekkd/DouYin-Plugin)（Yunzai 框架）
+
+## 相关链接
+
+- SDK：https://www.npmjs.com/package/douyin.ts
+- Zhin.js：https://zhin.js.org
+- GitHub：https://github.com/zhinjs/zhin
+- 许可证：MIT
